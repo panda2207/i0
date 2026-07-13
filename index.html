@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday, Kiran! 🎂</title>
+
+  <!-- Google Fonts: Poppins & Montserrat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300..900;1,300..900&family=Poppins:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Swiper.js -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+
+  <!-- AOS Animate on Scroll -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="light-theme">
+
+  <!-- Fireworks Canvas -->
+  <canvas id="fireworksCanvas" class="fireworks-canvas"></canvas>
+
+  <!-- Controls: Theme + Music -->
+  <div class="controls-dashboard">
+    <button id="themeToggle" class="control-btn" title="Toggle Theme">
+      <i class="fa-solid fa-moon"></i>
+    </button>
+    <button id="musicToggle" class="control-btn" title="Toggle Music">
+      <i class="fa-solid fa-music"></i>
+    </button>
+  </div>
+
+  <!-- Slide Progress Bar -->
+  <div class="progress-track">
+    <div class="progress-fill" id="progressFill"></div>
+  </div>
+
+  <!-- Slide Counter -->
+  <div class="slide-counter" id="slideCounter">1 / 7</div>
+
+  <!-- Background Music -->
+  <audio id="bgMusic" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Swiper Container -->
+  <div class="swiper mainSwiper">
+    <div class="swiper-wrapper">
+
+      <!-- ===== SLIDE 1: Birthday Wishes ===== -->
+      <section class="swiper-slide slide-1">
+        <div class="slide-bg slide-1-bg"></div>
+        <div class="floating-shapes" id="shapes1"></div>
+        <div class="slide-inner" data-aos="fade-in" data-aos-duration="1000">
+
+          <!-- Mascot stickers floating at top -->
+          <div class="mascot-row">
+            <img src="panda.jpg"     alt="Panda"     class="mascot float-1">
+            <img src="doraemon.jpg"  alt="Doraemon"  class="mascot float-2">
+            <img src="shinchan.jpg"  alt="Shinchan"  class="mascot float-3">
+            <img src="tom_jerry.jpg" alt="Tom Jerry"  class="mascot float-4">
+          </div>
+
+          <div class="glass-card wishes-card">
+            <div class="slide-tag">
+              <i class="fa-solid fa-cake-candles"></i> Birthday Wishes
+            </div>
+            <h1 class="wishes-title">Happy Birthday,<br><span class="name-glow">Kiran</span> 🎂</h1>
+
+            <!-- Second Birthday Badge -->
+            <div class="second-bday-badge" data-aos="zoom-in" data-aos-delay="150">
+              <i class="fa-solid fa-star"></i>
+              Celebrating Your Birthday as My 2nd Birthday!
+              <i class="fa-solid fa-star"></i>
+            </div>
+
+            <div class="letter-content" data-aos="fade-up" data-aos-delay="300" style="text-align: center;">
+              <p>Dear Kiran,</p>
+              <p>Wishing you a wonderful birthday filled with endless happiness, success, and good health. May all your dreams come true! 🌟</p>
+              <p class="letter-sign" style="text-align: center; margin-top: 15px;">Happy Birthday! 🎉</p>
+            </div>
+          </div>
+
+
+        </div>
+      </section>
+
+      <!-- ===== SLIDE 2: Why I Did This Donation ===== -->
+      <section class="swiper-slide slide-2 cinematic-slide">
+        <div class="slide-bg slide-2-bg-cinematic"></div>
+        <div class="slide-inner">
+
+          <div class="slide-tag-center red-heart-tag" data-aos="fade-down">
+            Your Birthday, Someone’s Smile
+          </div>
+
+          <!-- The Complete Highlighted Message Card -->
+          <div class="cinematic-highlight-card" data-aos="fade-up" data-aos-delay="200">
+            <i class="fa-solid fa-quote-left highlight-quote-icon left-quote"></i>
+            <p class="cinematic-dear" style="font-size: 1.3rem; margin-bottom: 15px; color: #fff;">Dear Kiran,</p>
+            
+            <p class="highlight-quote-text" style="margin-bottom: 16px;">
+              I wanted to make your birthday truly special by celebrating it in my own way. Since your birthday feels like my second birthday too, I wanted to celebrate this special day by making sure that someone who is hungry gets food, so they don't have to sleep with an empty stomach.
+            </p>
+            
+            <p class="highlight-quote-text highlight-accent-text">
+              And the reason behind those smiles is you, <span class="name-glow-highlight">Kiran</span>. Your special day became a reason to make someone smile, bring a little happiness into their life, and remind them that kindness still exists.
+            </p>
+            <i class="fa-solid fa-quote-right highlight-quote-icon right-quote"></i>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== SLIDE 3: Interactive Memory Gallery ===== -->
+      <section class="swiper-slide slide-gallery-slide">
+        <div class="slide-bg slide-gallery-bg"></div>
+        <div class="slide-inner wide-inner swiper-no-swiping">
+
+          <div class="slide-tag-center red-heart-tag" data-aos="fade-down">
+            🎂 Your Birthday, Their Smile
+          </div>
+          <h2 class="section-title text-glow" data-aos="fade-down" data-aos-delay="100">
+            ✨ This Is All Because Of You
+          </h2>
+
+          <div class="gallery-grid" data-aos="zoom-in" data-aos-delay="200">
+            <!-- Memory 1 -->
+            <div class="gallery-item placeholder-item">
+              <div class="gallery-card glass-card dashed-card">
+                <div class="placeholder-content">
+                  <i class="fa-solid fa-plus"></i>
+                  <span>Add Photo / Video (1)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Memory 2 -->
+            <div class="gallery-item placeholder-item">
+              <div class="gallery-card glass-card dashed-card">
+                <div class="placeholder-content">
+                  <i class="fa-solid fa-plus"></i>
+                  <span>Add Photo / Video (2)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Memory 3 -->
+            <div class="gallery-item placeholder-item">
+              <div class="gallery-card glass-card dashed-card">
+                <div class="placeholder-content">
+                  <i class="fa-solid fa-plus"></i>
+                  <span>Add Photo / Video (3)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Memory 4 -->
+            <div class="gallery-item placeholder-item">
+              <div class="gallery-card glass-card dashed-card">
+                <div class="placeholder-content">
+                  <i class="fa-solid fa-plus"></i>
+                  <span>Add Photo / Video (4)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Memory 5 -->
+            <div class="gallery-item placeholder-item">
+              <div class="gallery-card glass-card dashed-card">
+                <div class="placeholder-content">
+                  <i class="fa-solid fa-plus"></i>
+                  <span>Add Photo / Video (5)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Memory 6 -->
+            <div class="gallery-item placeholder-item">
+              <div class="gallery-card glass-card dashed-card">
+                <div class="placeholder-content">
+                  <i class="fa-solid fa-plus"></i>
+                  <span>Add Photo / Video (6)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Memory 7 -->
+            <div class="gallery-item placeholder-item">
+              <div class="gallery-card glass-card dashed-card">
+                <div class="placeholder-content">
+                  <i class="fa-solid fa-plus"></i>
+                  <span>Add Photo / Video (7)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Memory 8 -->
+            <div class="gallery-item placeholder-item">
+              <div class="gallery-card glass-card dashed-card">
+                <div class="placeholder-content">
+                  <i class="fa-solid fa-plus"></i>
+                  <span>Add Photo / Video (8)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Memory 9 -->
+            <div class="gallery-item placeholder-item">
+              <div class="gallery-card glass-card dashed-card">
+                <div class="placeholder-content">
+                  <i class="fa-solid fa-plus"></i>
+                  <span>Add Photo / Video (9)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Memory 10 -->
+            <div class="gallery-item placeholder-item">
+              <div class="gallery-card glass-card dashed-card">
+                <div class="placeholder-content">
+                  <i class="fa-solid fa-plus"></i>
+                  <span>Add Photo / Video (10)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Memory 11 -->
+            <div class="gallery-item placeholder-item">
+              <div class="gallery-card glass-card dashed-card">
+                <div class="placeholder-content">
+                  <i class="fa-solid fa-plus"></i>
+                  <span>Add Photo / Video (11)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Memory 12 -->
+            <div class="gallery-item placeholder-item">
+              <div class="gallery-card glass-card dashed-card">
+                <div class="placeholder-content">
+                  <i class="fa-solid fa-plus"></i>
+                  <span>Add Photo / Video (12)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ===== SLIDE 4: Combined Memory Videos ===== -->
+      <section class="swiper-slide slide-memories-slide">
+        <div class="slide-bg slide-memories-bg-dark"></div>
+        <div class="slide-inner wide-inner swiper-no-swiping">
+
+          <h2 class="emotional-heading" data-aos="fade-down">
+            The <span class="heart-word-glow">happiness</span> you gave today will always come back to you in beautiful ways. Because today, your special day became a reason for someone to have food, feel cared for, and sleep peacefully with a full stomach.
+          </h2>
+
+          <!-- Centered 3 Video Layout (1 Large + 2 Sub) -->
+          <div class="theater-videos-layout" data-aos="zoom-in" data-aos-delay="200">
+            
+            <!-- Featured Video (Video 1) -->
+            <div class="featured-video-item">
+              <span class="video-item-tag">Moment 1</span>
+              <div class="theater-video-frame-large">
+                <video src="video3.mp4" controls preload="auto" class="theater-player-large"></video>
+              </div>
+            </div>
+
+            <!-- Two Sub Videos Side-by-Side -->
+            <div class="sub-videos-row">
+              <!-- Video 2 -->
+              <div class="sub-video-item">
+                <span class="video-item-tag-sub">Moment 2</span>
+                <div class="theater-video-frame-sub">
+                  <video src="video1.mp4" controls preload="auto" class="theater-player-sub"></video>
+                </div>
+              </div>
+
+              <!-- Video 3 -->
+              <div class="sub-video-item">
+                <span class="video-item-tag-sub">Moment 3</span>
+                <div class="theater-video-frame-sub">
+                  <video src="video2.mp4" controls preload="auto" class="theater-player-sub"></video>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ===== SLIDE 5: Donation Moment ===== -->
+      <section class="swiper-slide slide-5">
+        <div class="slide-bg slide-5-bg"></div>
+        <div class="slide-inner wide-inner swiper-no-swiping">
+
+          <div class="slide-tag-center red-heart-tag" data-aos="fade-down">
+            <i class="fa-solid fa-heart"></i> For Your Smile, Always
+          </div>
+
+          <div class="donation-layout">
+            <!-- Centered Donation Photos & Text -->
+            <div class="donation-right-col">
+              <div class="donation-photos-grid">
+                <div class="photo-card glass-card" data-aos="fade-left" data-aos-delay="250">
+                  <img src="panda.jpg" alt="Donation moment 1">
+                </div>
+                <div class="photo-card glass-card" data-aos="fade-left" data-aos-delay="350">
+                  <img src="shinchan.jpg" alt="Donation moment 2">
+                </div>
+                <div class="photo-card glass-card" data-aos="fade-left" data-aos-delay="450">
+                  <img src="tom_jerry.jpg" alt="Donation moment 3">
+                </div>
+              </div>
+              <!-- Premium Letter Card -->
+              <div class="donation-message glass-card premium-letter-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="letter-stamp"><i class="fa-solid fa-heart fa-beat"></i></div>
+                <h3 class="letter-greeting">Many more happy returns of the day, my dearest one and my one and only bestest friend, Kiran. ❤️🎉</h3>
+                
+                <div class="letter-body-text">
+                  <p><strong>Kiran,</strong></p>
+                  <p>On your special day, I just want to tell you something that's always in my heart.</p>
+                  <p>You may not think much about your health, but for me, your health is everything. Nothing in this world is more important to me than seeing you healthy, safe, and smiling. Your smile means so much to me, and seeing you smile makes my entire day more special. Your happiness brings peace to my heart, and that's all I ever want for you.</p>
+                  <p>Sometimes I don't tell you these things, but every time I visit any temple, one of my prayers is always for you.</p>
+                  
+                  <blockquote class="letter-prayer-block">
+                    "Please always keep Kiran healthy, happy, and safe. Protect her from every illness, every pain, and every difficulty. Hold her hand through every step of her life and never let anything take away her beautiful smile."
+                  </blockquote>
+                  
+                  <p><strong>Sai Baba</strong>, every single day I pray to You for Kiran with complete faith because I know You are always listening. I trust You with all my heart, and I know You will always take care of her.</p>
+                  <p>Please bless her with a wonderful job very soon. She has worked so hard and waited patiently. She deserves every happiness and every success. Please open the right doors for her, remove every obstacle from her path, and bless her with a bright future.</p>
+                  <p>One of my biggest wishes is to see the happiness on your face, Kiran, when you receive your first salary and buy beautiful gifts for your family. I know how much that moment means to you, and I pray with all my heart that Sai Baba makes that dream come true very soon and I <em>pinky promise</em> Sai Baba will do this all.</p>
+                  <p>Thank You, Baba, for always watching over Kiran. Please continue to guide her, protect her, and shower Your endless blessings upon her. If I could ask You for only one thing, it would be to always keep her healthy. That alone is enough to make my heart peaceful.</p>
+                  <p>Kiran, I want you to know that I will always be excited to celebrate your success as if it were my own. Your achievements will always make me proud, and your happiness will always bring a smile to my face. No matter what challenges or problems come into your life, you will never have to face them alone. I will always stand beside you, support you, believe in you, and be there for you through every step of your journey. I will always pray for you, cheer for you, and celebrate every milestone you achieve because seeing you succeed is one of the greatest joys of my life.</p>
+                  <p>Kiran, you are one of the greatest blessings in my life, and I thank Sai Baba every single day for bringing you into my life. No matter where life takes us, one thing will never change—I will always pray for you, always believe in you, and always be there for you.</p>
+                </div>
+                
+                <div class="letter-footer">
+                  <p class="letter-sign-off">Once again, many more happy returns of the day, my bestest friend. ❤️</p>
+                  <p class="letter-closing">May Sai Baba always hold your hand, bless you with good health, help you get the job you deserve, fulfill all your dreams, and keep that beautiful smile on your face forever.</p>
+                  <p class="letter-final-wish">Happy Birthday, Kiran. ❤️</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ===== SLIDE 6: Interactive Birthday Cake ===== -->
+      <section class="swiper-slide slide-cake-slide">
+        <div class="slide-bg slide-cake-bg"></div>
+        <div class="floating-shapes" id="shapes6"></div>
+        <div class="slide-inner swiper-no-swiping">
+
+          <div class="slide-tag-center red-heart-tag" data-aos="fade-down">
+            🎂 Make A Wish!
+          </div>
+          
+          <h2 class="section-title text-glow" data-aos="fade-down" data-aos-delay="100">
+            Blow Out The Candles
+          </h2>
+
+          <div class="cake-container" data-aos="zoom-in" data-aos-delay="200">
+            <!-- Glowing instruction text -->
+            <p class="cake-instruction">Click each candle to blow it out!</p>
+            
+            <!-- Virtual Cake -->
+            <div class="birthday-cake">
+              <!-- Plate -->
+              <div class="cake-plate"></div>
+              <!-- Cake Bottom Layer -->
+              <div class="cake-layer bottom-layer"></div>
+              <!-- Cake Top Layer -->
+              <div class="cake-layer top-layer"></div>
+              <!-- Cake Frosting -->
+              <div class="cake-frosting"></div>
+              <!-- Candles Grid -->
+              <div class="candles-row">
+                <div class="candle" onclick="blowCandle(this, 1)">
+                  <div class="candle-wick"></div>
+                  <div class="candle-flame"></div>
+                </div>
+                <div class="candle" onclick="blowCandle(this, 2)">
+                  <div class="candle-wick"></div>
+                  <div class="candle-flame"></div>
+                </div>
+                <div class="candle" onclick="blowCandle(this, 3)">
+                  <div class="candle-wick"></div>
+                  <div class="candle-flame"></div>
+                </div>
+                <div class="candle" onclick="blowCandle(this, 4)">
+                  <div class="candle-wick"></div>
+                  <div class="candle-flame"></div>
+                </div>
+                <div class="candle" onclick="blowCandle(this, 5)">
+                  <div class="candle-wick"></div>
+                  <div class="candle-flame"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Secret Birthday Card (Initially Hidden) -->
+          <div class="glass-card secret-wish-card hidden-element" id="secretWishCard">
+            <h3 class="secret-card-title"><span class="name-glow">Kiran's</span> Magic Moment ✨</h3>
+            <p class="secret-card-text">May your life be as sweet as this cake, and may all your silent wishes reach Sai Baba today! ❤️</p>
+            <div class="secret-card-decor">
+              <i class="fa-solid fa-cake-candles fa-beat-fade"></i>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ===== SLIDE 7: The End ===== -->
+      <section class="swiper-slide slide-6">
+        <div class="slide-bg slide-6-bg"></div>
+        <div class="floating-shapes" id="shapes7"></div>
+        <div class="slide-inner swiper-no-swiping">
+
+          <div class="slide-tag-center" data-aos="fade-down">
+            <i class="fa-solid fa-star"></i> The End
+          </div>
+
+          <div class="glass-card ending-card" data-aos="zoom-in" data-aos-delay="200">
+
+            <div class="ending-mascots">
+              <img src="panda.jpg"     alt="Panda"    class="end-mascot">
+              <img src="doraemon.jpg"  alt="Doraemon" class="end-mascot">
+              <img src="shinchan.jpg"  alt="Shinchan" class="end-mascot">
+              <img src="tom_jerry.jpg" alt="T&J"      class="end-mascot">
+            </div>
+
+            <h2 class="ending-title">Thank You, <span class="name-glow">Kiran</span> 🎉</h2>
+
+            <div class="ending-text" data-aos="fade-up" data-aos-delay="400">
+              <p>Thank you for being an amazing person and an important part of my life.</p>
+              <p>I hope this small effort brings a <strong>big smile</strong> to your face.</p>
+              <p>Keep shining, keep smiling, and always stay the wonderful person you are.</p>
+              <p class="letter-sign">Happy Birthday, Kiran 🎂✨</p>
+            </div>
+
+            <button class="celebrate-btn" id="celebrateBtn" onclick="triggerCelebration()">
+              <i class="fa-solid fa-cake-candles"></i> Celebrate! 🎉
+            </button>
+          </div>
+
+          <!-- ====  Add Your Message Form  ==== -->
+          <div class="glass-card msg-form-card" data-aos="fade-up" data-aos-delay="400">
+            <div class="msg-form-header">
+              <i class="fa-solid fa-pen-to-square"></i>
+              <span>Add Your Message for Kiran</span>
+            </div>
+            <form id="addMsgForm" onsubmit="submitMessage(event)">
+              <div class="msg-form-row">
+                <input
+                  type="text"
+                  id="msgSenderName"
+                  class="msg-input"
+                  placeholder="Your name..."
+                  maxlength="30"
+                  required>
+              </div>
+              <div class="msg-form-row">
+                <textarea
+                  id="msgBody"
+                  class="msg-textarea"
+                  placeholder="Write something beautiful for Kiran here..."
+                  rows="4"
+                  maxlength="400"
+                  required></textarea>
+              </div>
+              <div class="msg-avatar-row">
+                <span class="avatar-label">Choose your avatar:</span>
+                <label class="av-opt">
+                  <input type="radio" name="msgAvatar" value="panda" checked>
+                  <img src="panda.jpg" alt="Panda">
+                  <span>Panda</span>
+                </label>
+                <label class="av-opt">
+                  <input type="radio" name="msgAvatar" value="doraemon">
+                  <img src="doraemon.jpg" alt="Doraemon">
+                  <span>Doraemon</span>
+                </label>
+                <label class="av-opt">
+                  <input type="radio" name="msgAvatar" value="shinchan">
+                  <img src="shinchan.jpg" alt="Shinchan">
+                  <span>Shinchan</span>
+                </label>
+                <label class="av-opt">
+                  <input type="radio" name="msgAvatar" value="tom_jerry">
+                  <img src="tom_jerry.jpg" alt="Tom &amp; Jerry">
+                  <span>T&amp;J</span>
+                </label>
+              </div>
+              <button type="submit" class="msg-submit-btn">
+                <i class="fa-solid fa-paper-plane"></i> Send Message
+              </button>
+            </form>
+
+            <!-- Messages Wall -->
+            <div class="msg-wall" id="msgWall">
+              <!-- Loaded from localStorage -->
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </div><!-- /swiper-wrapper -->
+
+    <!-- Swiper Pagination -->
+    <div class="swiper-pagination"></div>
+  </div><!-- /swiper -->
+
+  <!-- Thank You Overlay -->
+  <div class="thankyou-overlay" id="thankyouOverlay">
+    <div class="thankyou-card glass-card bounce-in">
+      <div class="ty-icon"><i class="fa-solid fa-cake-candles fa-bounce"></i></div>
+      <h2>Happy Birthday, Kiran! 🎂</h2>
+      <p>May this year bring you more joy, laughter, and beautiful memories than ever before.</p>
+      <div class="ty-mascots">
+        <img src="panda.jpg"     alt="Panda">
+        <img src="doraemon.jpg"  alt="Doraemon">
+        <img src="shinchan.jpg"  alt="Shinchan">
+        <img src="tom_jerry.jpg" alt="Tom & Jerry">
+      </div>
+      <button class="close-ty-btn" onclick="closeOverlay()">You're Welcome! ✨</button>
+    </div>
+  </div>
+
+  <!-- Fixed navigation button -->
+  <button class="fixed-next-btn" onclick="goNext()">
+    Next <i class="fa-solid fa-arrow-right"></i>
+  </button>
+
+  <!-- Lightbox Modal -->
+  <div class="lightbox-modal" id="lightboxModal" onclick="closeLightbox()">
+    <button class="lightbox-close-btn" onclick="closeLightbox()">&times;</button>
+    <div class="lightbox-content-box" onclick="event.stopPropagation()">
+      <img id="lightboxImage" src="" alt="Expanded View" class="lightbox-element hidden">
+      <video id="lightboxVideo" src="" controls class="lightbox-element hidden"></video>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
