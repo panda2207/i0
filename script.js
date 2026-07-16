@@ -6,7 +6,7 @@
 
 // ── Global Swiper instance ─────────────────
 let swiper;
-let totalSlides = 7;
+let totalSlides = 8;
 let typingStarted = false;
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -35,6 +35,15 @@ document.addEventListener('DOMContentLoaded', () => {
         parent.style.position = 'relative';
         parent.appendChild(overlay);
       }
+    });
+
+    // Auto-pause other playing videos when one starts
+    v.addEventListener('play', () => {
+      videos.forEach((otherV) => {
+        if (otherV !== v) {
+          otherV.pause();
+        }
+      });
     });
   });
 
@@ -114,7 +123,16 @@ function initSwiper() {
         updateProgress(this.activeIndex);
         updateCounter(this.activeIndex);
         AOS.refresh();
-        if (this.activeIndex === 3) startTypewriter(); // Slide 4 (index 3)
+        // Hide Next button only on the very last slide
+        const fixedBtn = document.getElementById('fixedNextBtn');
+        if (fixedBtn) {
+          fixedBtn.style.display = (this.activeIndex >= 7) ? 'none' : '';
+        }
+        if (this.activeIndex === 6) {
+          startSkyReveal(); // Slide 7 (index 6)
+        } else {
+          stopSkyReveal();
+        }
       }
     }
   });
@@ -138,69 +156,7 @@ function updateCounter(index) {
   if (el) el.textContent = `${index + 1} / ${totalSlides}`;
 }
 
-/* ==========================================
-   4. Typewriter — Slide 3 Full Message
-      (from the screenshot you shared)
-   ========================================== */
-const kiranaMessage =
-`Happy Birthday, Kiran!
 
-I'm so grateful to have you in my life. You are a very special person to me, and I thank God every day for you.
-
-There are many people in this world, but for me, there is only one Kiran. You are not just my friend — you are a very special part of my life. Your friendship means everything to me. Thank you for always being by my side, understanding me, supporting me, and making my life happier. I feel truly blessed to have you in my life.
-
-Because you mean so much to me, every time I go to a temple, I pray for your good health, success, happiness, and a beautiful life. Whenever I pray to Sai Baba, one of my prayers is always for you.
-
-I asked Sai Baba to bless you with good health and to keep you away from any health problems in the future. I prayed for you with all my heart, and I truly believe He listened to my prayer. I have complete faith that He will always bless you, protect you, and take care of you. I promise you that He will always be with you, and I truly believe He will answer my prayers for you and bless you with all of this.
-
-No matter what problems you face in life, you will never have to face them alone. I believe in you, and I know you can overcome every challenge that comes your way. I will always be there for you, to support you, stand by your side, and help you in every way I can. I will always be happy to see you succeed, and I will always feel proud and happy celebrating your success.
-
-May God always keep you safe, and give you everything that makes you happy.
-
-Happy Birthday, Kiran! 🎂✨
-
-— Your Friend`;
-
-function startTypewriter() {
-  if (typingStarted) return;
-  typingStarted = true;
-
-  const box    = document.getElementById('typewriterText');
-  const cursor = document.querySelector('.cursor-blink');
-  if (!box) return;
-
-  box.textContent = '';
-  let i = 0;
-
-  function tick() {
-    if (i >= kiranaMessage.length) {
-      if (cursor) cursor.style.display = 'none';
-      return;
-    }
-    const ch = kiranaMessage[i];
-    box.textContent += ch;
-    i++;
-
-    // Sync scrolling inside the slide-inner so we can read as it types
-    const inner = box.closest('.slide-inner');
-    if (inner) inner.scrollTop = inner.scrollHeight;
-
-    // Natural pacing
-    let delay = 28;
-    if (ch === '.' || ch === '!')        delay = 400;
-    else if (ch === ',')                 delay = 180;
-    else if (ch === '\n')                delay = 120;
-
-    // Quiet click for consonants (not every char for perf)
-    if (ch !== ' ' && ch !== '\n' && Math.random() < 0.4) {
-      playTone('type');
-    }
-
-    setTimeout(tick, delay);
-  }
-
-  setTimeout(tick, 600);
-}
 
 /* ==========================================
    5. Web-Audio Sound Engine
@@ -288,6 +244,36 @@ function playTone(type) {
         g.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.07 + 0.4);
         o.start(now + idx * 0.07);
         o.stop(now + idx * 0.07 + 0.4);
+      });
+    }
+    else if (type === 'melody') {
+      // Soft piano-like ambient chord progression: Cmaj9 -> Fmaj9 -> Am9 -> Gsus4
+      const chords = [
+        [130.81, 261.63, 329.63, 392.00, 493.88], // Cmaj9
+        [174.61, 349.23, 440.00, 523.25, 659.25], // Fmaj9
+        [220.00, 440.00, 523.25, 659.25, 783.99], // Am9
+        [196.00, 392.00, 493.88, 587.33, 698.46]  // Gsus4
+      ];
+      chords.forEach((chord, chordIdx) => {
+        chord.forEach((freq, noteIdx) => {
+          const o = ctx.createOscillator();
+          const g = ctx.createGain();
+          o.connect(g);
+          g.connect(ctx.destination);
+          
+          o.type = 'triangle'; // soft triangle wave
+          o.frequency.value = freq;
+          
+          const start = now + chordIdx * 1.6 + noteIdx * 0.06;
+          const duration = 1.8;
+          
+          g.gain.setValueAtTime(0, start);
+          g.gain.linearRampToValueAtTime(0.05, start + 0.15); // soft attack
+          g.gain.exponentialRampToValueAtTime(0.001, start + duration);
+          
+          o.start(start);
+          o.stop(start + duration);
+        });
       });
     }
   } catch (_) {}
@@ -811,3 +797,369 @@ window.triggerBadgeSpark = function(cardElem) {
   // Play pop sound tone
   playTone('pop');
 };
+
+/* ==========================================
+   Slide 7 — Sky Wishes Cinematic Reveal Logic
+   ========================================== */
+let skyShapeInterval = null;
+let skyCanvasAnimationFrameId = null;
+
+function startSkyReveal() {
+  const container = document.getElementById('skyFloatingContainer');
+  const msgContainer = document.querySelector('.sky-message-container');
+  const canvas = document.getElementById('skyCanvas');
+  if (!container || !msgContainer || !canvas) return;
+
+  // Reset CSS states
+  container.innerHTML = '';
+  msgContainer.classList.remove('reveal-active');
+
+  const ctx = canvas.getContext('2d');
+  
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  // Create offscreen text target coordinates
+  let targets = [];
+  try {
+    const offscreenCanvas = document.createElement('canvas');
+    const offctx = offscreenCanvas.getContext('2d');
+    offscreenCanvas.width = window.innerWidth;
+    offscreenCanvas.height = window.innerHeight;
+
+    offctx.fillStyle = '#ffffff';
+    offctx.textAlign = 'center';
+    offctx.textBaseline = 'middle';
+
+    let fontSize1 = Math.max(16, Math.min(30, window.innerWidth / 30));
+    let fontSize2 = Math.max(18, Math.min(34, window.innerWidth / 28));
+    const lineSpacing = Math.max(30, Math.min(60, window.innerWidth / 20));
+
+    // Sample coordinates
+    offctx.font = `bold ${fontSize1}px "Poppins", sans-serif`;
+    offctx.fillText('Many More Happy Returns of the Day ✨🎆', offscreenCanvas.width / 2, offscreenCanvas.height / 2 - lineSpacing / 2);
+
+    offctx.font = `italic bold ${fontSize2}px "Playfair Display", Georgia, serif`;
+    offctx.fillText('Reddy Kiranmayi Sai Sri Gayathri Devi', offscreenCanvas.width / 2, offscreenCanvas.height / 2 + lineSpacing / 2);
+
+    const imgData = offctx.getImageData(0, 0, offscreenCanvas.width, offscreenCanvas.height);
+    const step = window.innerWidth < 768 ? 2 : 3;
+
+    for (let y = 0; y < offscreenCanvas.height; y += step) {
+      for (let x = 0; x < offscreenCanvas.width; x += step) {
+        const idx = (y * offscreenCanvas.width + x) * 4;
+        const alpha = imgData.data[idx + 3];
+        if (alpha > 128) {
+          targets.push({ x, y });
+        }
+      }
+    }
+  } catch (err) {
+    console.error('Error calculating targets in startSkyReveal:', err);
+  }
+
+  // Animation variables
+  let skyState = 'starry'; // starry, launch-crimson, explode-crimson, launch-hearts, explode-hearts, swirl, gather, glow
+  let frameCount = 0;
+  let skyParticles = [];
+  let rockets = [];
+  
+  // 60 Tiny Golden background stars
+  let canvasStars = [];
+  for (let i = 0; i < 60; i++) {
+    canvasStars.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height * 0.8,
+      size: Math.random() * 1.5 + 0.5,
+      alpha: Math.random(),
+      speed: Math.random() * 0.015 + 0.005
+    });
+  }
+
+  // Color selection
+  function getRubyGoldColor() {
+    const r = Math.random();
+    if (r < 0.45) return '#d32f2f'; // Crimson red
+    if (r < 0.8) return '#990000';  // Ruby red
+    return '#ffd54f';               // Gold
+  }
+
+  class Rocket {
+    constructor(x, y, tx, ty, color) {
+      this.x = x;
+      this.y = y;
+      this.tx = tx;
+      this.ty = ty;
+      this.vx = (tx - x) / 50;
+      this.vy = -12;
+      this.color = color;
+      this.history = [];
+      this.exploded = false;
+    }
+    update() {
+      this.history.push({ x: this.x, y: this.y });
+      if (this.history.length > 6) this.history.shift();
+      this.x += this.vx;
+      this.y += this.vy;
+      this.vy += 0.13; // slow down due to gravity
+      if (this.vy >= 0 || this.y <= this.ty) {
+        this.exploded = true;
+      }
+    }
+    draw() {
+      ctx.strokeStyle = this.color;
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      if (this.history.length > 0) {
+        ctx.moveTo(this.history[0].x, this.history[0].y);
+        for (let pt of this.history) ctx.lineTo(pt.x, pt.y);
+      }
+      ctx.stroke();
+    }
+  }
+
+  class Particle {
+    constructor(x, y, targetX, targetY, color, isHeart = false, angleIdx = 0, totalAngles = 1) {
+      this.x = x;
+      this.y = y;
+      this.targetX = targetX;
+      this.targetY = targetY;
+      this.color = color;
+      
+      // Explosion physics
+      if (isHeart) {
+        // Parametric heart formula: x = 16sin^3(t), y = -(13cos(t) - 5cos(2t) - 2cos(3t) - cos(4t))
+        const theta = (angleIdx / totalAngles) * Math.PI * 2;
+        const speedFactor = Math.random() * 0.4 + 0.8;
+        this.vx = 16 * Math.sin(theta) ** 3 * 0.23 * speedFactor;
+        this.vy = -(13 * Math.cos(theta) - 5 * Math.cos(2 * theta) - 2 * Math.cos(3 * theta) - Math.cos(4 * theta)) * 0.23 * speedFactor;
+      } else {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * 5 + 2;
+        this.vx = Math.cos(angle) * speed;
+        this.vy = Math.sin(angle) * speed;
+      }
+      
+      this.size = Math.random() * 1.6 + 1.2;
+      this.orbitAngle = Math.random() * Math.PI * 2;
+      this.orbitSpeed = (Math.random() * 0.02 + 0.015) * (Math.random() < 0.5 ? 1 : -1);
+      this.orbitRadius = Math.random() * 120 + 80;
+    }
+    update(centerX, centerY) {
+      if (skyState === 'explode-crimson' || skyState === 'launch-hearts' || skyState === 'explode-hearts') {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.vx *= 0.96;
+        this.vy *= 0.96;
+        this.vy += 0.05; // tiny gravity
+      } else if (skyState === 'swirl') {
+        this.orbitAngle += this.orbitSpeed;
+        this.orbitRadius = this.orbitRadius * 0.985 + 3.0; // spiral inward
+        const targetSwirlX = centerX + Math.cos(this.orbitAngle) * this.orbitRadius;
+        const targetSwirlY = centerY + Math.sin(this.orbitAngle) * this.orbitRadius;
+        
+        // vortex pulling
+        this.x += (targetSwirlX - this.x) * 0.08;
+        this.y += (targetSwirlY - this.y) * 0.08;
+      } else if (skyState === 'gather') {
+        const dx = this.targetX - this.x;
+        const dy = this.targetY - this.y;
+        this.x += dx * 0.06;
+        this.y += dy * 0.06;
+      } else if (skyState === 'glow') {
+        this.x = this.targetX + (Math.random() - 0.5) * 0.4;
+        this.y = this.targetY + (Math.random() - 0.5) * 0.4;
+      }
+    }
+    draw() {
+      ctx.fillStyle = this.color;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  // Slicing indices for explosions
+  const totalTargets = targets.length || 900;
+  const slice1 = Math.floor(totalTargets / 3);
+  const slice2 = Math.floor(2 * totalTargets / 3);
+
+  // Play the soft piano-ambient melody sound
+  playTone('melody');
+
+  if (skyCanvasAnimationFrameId) cancelAnimationFrame(skyCanvasAnimationFrameId);
+
+  function loop() {
+    // Clear & leave soft trails
+    ctx.fillStyle = 'rgba(10, 4, 24, 0.16)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // 1. Draw Twinkling Golden stars
+    ctx.fillStyle = '#ffd54f';
+    for (let s of canvasStars) {
+      s.alpha += s.speed;
+      if (s.alpha > 1 || s.alpha < 0.2) s.speed = -s.speed;
+      ctx.globalAlpha = Math.max(0.2, Math.min(1, s.alpha));
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1.0; // reset
+
+    frameCount++;
+
+    // Timeline state machine
+    if (skyState === 'starry' && frameCount > 50) {
+      // 0.8s: Launch crimson rocket
+      skyState = 'launch-crimson';
+      rockets.push(new Rocket(canvas.width / 2, canvas.height, canvas.width / 2, canvas.height * 0.45, '#d32f2f'));
+    } 
+    else if (skyState === 'launch-crimson') {
+      const r = rockets[0];
+      if (r) {
+        r.update();
+        if (r.exploded) {
+          skyState = 'explode-crimson';
+          playTone('pop');
+          rockets.shift();
+          
+          // Spawn Crimson particles mapped to first target slice
+          for (let i = 0; i < slice1; i++) {
+            const tx = targets[i] ? targets[i].x : canvas.width / 2 + (Math.random() - 0.5) * 200;
+            const ty = targets[i] ? targets[i].y : canvas.height / 2 + (Math.random() - 0.5) * 100;
+            skyParticles.push(new Particle(canvas.width / 2, canvas.height * 0.45, tx, ty, getRubyGoldColor()));
+          }
+        } else {
+          r.draw();
+        }
+      }
+    } 
+    else if (skyState === 'explode-crimson' && frameCount > 135) {
+      // 2.25s: Launch heart rockets
+      skyState = 'launch-hearts';
+      rockets.push(new Rocket(canvas.width * 0.3, canvas.height, canvas.width * 0.33, canvas.height * 0.35, '#ff4d6d'));
+      rockets.push(new Rocket(canvas.width * 0.7, canvas.height, canvas.width * 0.67, canvas.height * 0.38, '#ff4d6d'));
+    } 
+    else if (skyState === 'launch-hearts') {
+      let activeRockets = false;
+      for (let r of rockets) {
+        if (!r.exploded) {
+          activeRockets = true;
+          r.update();
+          r.draw();
+        }
+      }
+      if (!activeRockets) {
+        skyState = 'explode-hearts';
+        playTone('pop');
+        
+        // Spawn heart-shaped particles mapped to target slices 2 & 3
+        const countL = slice2 - slice1;
+        const countR = totalTargets - slice2;
+        
+        for (let i = slice1; i < slice2; i++) {
+          const tx = targets[i] ? targets[i].x : canvas.width / 2 + (Math.random() - 0.5) * 200;
+          const ty = targets[i] ? targets[i].y : canvas.height / 2 + (Math.random() - 0.5) * 100;
+          skyParticles.push(new Particle(canvas.width * 0.33, canvas.height * 0.35, tx, ty, getRubyGoldColor(), false, i - slice1, countL));
+        }
+        for (let i = slice2; i < totalTargets; i++) {
+          const tx = targets[i] ? targets[i].x : canvas.width / 2 + (Math.random() - 0.5) * 200;
+          const ty = targets[i] ? targets[i].y : canvas.height / 2 + (Math.random() - 0.5) * 100;
+          skyParticles.push(new Particle(canvas.width * 0.67, canvas.height * 0.38, tx, ty, getRubyGoldColor(), false, i - slice2, countR));
+        }
+        rockets = [];
+      }
+    } 
+    else if (skyState === 'explode-hearts' && frameCount > 270) {
+      // 4.5s: Swirl together like magic
+      skyState = 'swirl';
+    } 
+    else if (skyState === 'swirl' && frameCount > 380) {
+      // 6.3s: Gather to form text coordinates
+      skyState = 'gather';
+    } 
+    else if (skyState === 'gather' && frameCount > 490) {
+      // 8.1s: Fully gather, settle and glow
+      skyState = 'glow';
+      msgContainer.classList.add('reveal-active');
+    }
+
+    // Update and draw active particles
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+    for (let p of skyParticles) {
+      p.update(centerX, centerY);
+      p.draw();
+    }
+
+    // Twinkling gold sparkles around letters in glow state
+    if (skyState === 'glow' && Math.random() < 0.25) {
+      for (let i = 0; i < 4; i++) {
+        const randPt = targets[Math.floor(Math.random() * targets.length)];
+        if (randPt) {
+          // Add temporary gold sparkle on canvas
+          ctx.fillStyle = '#ffd54f';
+          ctx.beginPath();
+          ctx.arc(randPt.x + (Math.random() - 0.5) * 12, randPt.y + (Math.random() - 0.5) * 12, Math.random() * 1.8 + 0.8, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+    }
+
+    skyCanvasAnimationFrameId = requestAnimationFrame(loop);
+  }
+
+  // Spawner for floating stars and hearts in the air
+  if (skyShapeInterval) clearInterval(skyShapeInterval);
+  skyShapeInterval = setInterval(() => {
+    if (swiper.activeIndex !== 6) {
+      clearInterval(skyShapeInterval);
+      skyShapeInterval = null;
+      return;
+    }
+    spawnSkyShape(container);
+  }, 350);
+
+  loop();
+}
+
+function spawnSkyShape(container) {
+  if (!container) return;
+  const shape = document.createElement('div');
+  shape.className = 'floating-sky-shape';
+  
+  const size = Math.random() * 16 + 10; // 10px to 26px
+  shape.style.width = size + 'px';
+  shape.style.height = size + 'px';
+  shape.style.left = Math.random() * 95 + 'vw';
+  
+  const swayDist = (Math.random() - 0.5) * 40; // random swaying offset
+  shape.style.transform = `translateX(${swayDist}px)`;
+  
+  // Spawn sparkling stars in the sky, no heart icons
+  shape.innerHTML = '<i class="fa-solid fa-star" style="color: #ffd54f; filter: drop-shadow(0 0 5px rgba(255, 213, 79, 0.55));"></i>';
+  
+  const duration = Math.random() * 4 + 5; // 5s to 9s
+  shape.style.animationDuration = duration + 's';
+  
+  container.appendChild(shape);
+  
+  setTimeout(() => {
+    shape.remove();
+  }, duration * 1000);
+}
+
+function stopSkyReveal() {
+  if (skyShapeInterval) {
+    clearInterval(skyShapeInterval);
+    skyShapeInterval = null;
+  }
+  if (skyCanvasAnimationFrameId) {
+    cancelAnimationFrame(skyCanvasAnimationFrameId);
+    skyCanvasAnimationFrameId = null;
+  }
+}

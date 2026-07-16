@@ -8,7 +8,7 @@
   <!-- Google Fonts: Poppins & Montserrat -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300..900;1,300..900&family=Poppins:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Montserrat:ital,wght@0,300..900;1,300..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
 
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -20,9 +20,10 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
 
   <!-- Custom CSS -->
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=24.0">
 </head>
 <body class="light-theme">
+
 
   <!-- Fireworks Canvas -->
   <canvas id="fireworksCanvas" class="fireworks-canvas"></canvas>
@@ -42,8 +43,7 @@
     <div class="progress-fill" id="progressFill"></div>
   </div>
 
-  <!-- Slide Counter -->
-  <div class="slide-counter" id="slideCounter">1 / 7</div>
+
 
   <!-- Background Music -->
   <audio id="bgMusic" loop>
@@ -255,14 +255,19 @@
         </div>
       </section>
 
-      <!-- ===== SLIDE 4: Combined Memory Videos ===== -->
       <section class="swiper-slide slide-memories-slide">
         <div class="slide-bg slide-memories-bg-dark"></div>
+        <div class="floating-particle particle-1"></div>
+        <div class="floating-particle particle-2"></div>
+        <div class="floating-particle particle-3"></div>
+        <div class="quote-background-glow"></div>
         <div class="slide-inner wide-inner swiper-no-swiping">
 
-          <h2 class="emotional-heading" data-aos="fade-down">
-            The <span class="heart-word-glow">happiness</span> you gave today will always come back to you in beautiful ways. Because today, your special day became a reason for someone to have food, feel cared for, and sleep peacefully with a full stomach.
-          </h2>
+          <div class="emotional-quote-container" data-aos="zoom-in" data-aos-duration="1000">
+            <p class="emotional-quote-text">
+              'The <span class="highlight-script-rose">happiness</span> you gave today will always come back to you in <span class="highlight-serif-gold">beautiful ways</span>. Because today, your special day became a reason for someone to <span class="highlight-caps-cyan">have food</span>, <span class="highlight-caps-cyan">feel cared for</span>, and <span class="highlight-caps-cyan">sleep peacefully</span> with a full stomach."
+            </p>
+          </div>
 
           <!-- Centered 3 Video Layout (1 Large + 2 Sub) -->
           <div class="theater-videos-layout" data-aos="zoom-in" data-aos-delay="200">
@@ -423,7 +428,29 @@
         </div>
       </section>
 
-      <!-- ===== SLIDE 7: The End ===== -->
+      <!-- ===== SLIDE 7: Grand Sky Wishes ===== -->
+      <section class="swiper-slide slide-sky-wishes">
+        <div class="sky-background-stars"></div>
+        <div class="sky-moon"></div>
+        <canvas id="skyCanvas"></canvas>
+        <div class="sky-floating-elements" id="skyFloatingContainer"></div>
+        <div class="slide-inner wide-inner swiper-no-swiping sky-wishes-content">
+          <div class="sky-message-container">
+            <h2 class="sky-wishes-line1" id="skyLine1">
+              Many More Happy Returns of the Day <span class="emoji-glow">✨🎆</span>
+            </h2>
+            <h1 class="sky-wishes-line2" id="skyLine2">
+              Reddy Kiranmayi Sai Sri Gayathri Devi
+            </h1>
+            <div class="princess-img-wrapper" id="princessWrapper">
+              <img src="princess.jpg" alt="Princess" class="princess-img" id="princessImg" />
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ===== SLIDE 8: The End ===== -->
       <section class="swiper-slide slide-6">
         <div class="slide-bg slide-6-bg"></div>
         <div class="floating-shapes" id="shapes7"></div>
@@ -456,64 +483,7 @@
             </button>
           </div>
 
-          <!-- ====  Add Your Message Form  ==== -->
-          <div class="glass-card msg-form-card" data-aos="fade-up" data-aos-delay="400">
-            <div class="msg-form-header">
-              <i class="fa-solid fa-pen-to-square"></i>
-              <span>Add Your Message for Kiran</span>
-            </div>
-            <form id="addMsgForm" onsubmit="submitMessage(event)">
-              <div class="msg-form-row">
-                <input
-                  type="text"
-                  id="msgSenderName"
-                  class="msg-input"
-                  placeholder="Your name..."
-                  maxlength="30"
-                  required>
-              </div>
-              <div class="msg-form-row">
-                <textarea
-                  id="msgBody"
-                  class="msg-textarea"
-                  placeholder="Write something beautiful for Kiran here..."
-                  rows="4"
-                  maxlength="400"
-                  required></textarea>
-              </div>
-              <div class="msg-avatar-row">
-                <span class="avatar-label">Choose your avatar:</span>
-                <label class="av-opt">
-                  <input type="radio" name="msgAvatar" value="panda" checked>
-                  <img src="panda.jpg" alt="Panda">
-                  <span>Panda</span>
-                </label>
-                <label class="av-opt">
-                  <input type="radio" name="msgAvatar" value="doraemon">
-                  <img src="doraemon.jpg" alt="Doraemon">
-                  <span>Doraemon</span>
-                </label>
-                <label class="av-opt">
-                  <input type="radio" name="msgAvatar" value="shinchan">
-                  <img src="shinchan.jpg" alt="Shinchan">
-                  <span>Shinchan</span>
-                </label>
-                <label class="av-opt">
-                  <input type="radio" name="msgAvatar" value="tom_jerry">
-                  <img src="tom_jerry.jpg" alt="Tom &amp; Jerry">
-                  <span>T&amp;J</span>
-                </label>
-              </div>
-              <button type="submit" class="msg-submit-btn">
-                <i class="fa-solid fa-paper-plane"></i> Send Message
-              </button>
-            </form>
-
-            <!-- Messages Wall -->
-            <div class="msg-wall" id="msgWall">
-              <!-- Loaded from localStorage -->
-            </div>
-          </div>
+          <!-- Message board removed by request -->
 
         </div>
       </section>
@@ -541,7 +511,7 @@
   </div>
 
   <!-- Fixed navigation button -->
-  <button class="fixed-next-btn" onclick="goNext()">
+  <button class="fixed-next-btn" id="fixedNextBtn" onclick="goNext()">
     Next <i class="fa-solid fa-arrow-right"></i>
   </button>
 
@@ -558,6 +528,6 @@
   <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-  <script src="script.js"></script>
+  <script src="script.js?v=19.0"></script>
 </body>
 </html>
