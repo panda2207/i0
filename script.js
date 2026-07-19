@@ -8,6 +8,7 @@
 let swiper;
 let totalSlides = 8;
 let typingStarted = false;
+let bgMusicPausedByVideo = false;
 
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
@@ -37,14 +38,41 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Auto-pause other playing videos when one starts
+    // Auto-pause other playing videos and background music when one starts
     v.addEventListener('play', () => {
       videos.forEach((otherV) => {
         if (otherV !== v) {
           otherV.pause();
         }
       });
+
+      // Pause background music if it is active
+      const bgMusic = document.getElementById('bgMusic');
+      if (bgMusic && !bgMusic.paused) {
+        bgMusic.pause();
+        bgMusicPausedByVideo = true;
+        const btn = document.getElementById('musicToggle');
+        if (btn) btn.innerHTML = '<i class="fa-solid fa-music"></i>';
+      }
     });
+
+    // Auto-resume background music when video stops
+    const handleVideoStop = () => {
+      const anyPlaying = Array.from(videos).some(vid => !vid.paused && !vid.ended);
+      if (!anyPlaying && bgMusicPausedByVideo) {
+        const bgMusic = document.getElementById('bgMusic');
+        if (bgMusic) {
+          bgMusic.play().then(() => {
+            const btn = document.getElementById('musicToggle');
+            if (btn) btn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+          }).catch(() => {});
+        }
+        bgMusicPausedByVideo = false;
+      }
+    };
+
+    v.addEventListener('pause', handleVideoStop);
+    v.addEventListener('ended', handleVideoStop);
   });
 
   initSwiper();
@@ -55,6 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
   spawnShapes('shapes6');
   spawnShapes('shapes7');
   initCursorTrail();
+  initQuote3DTilt();
 });
 
 /* ==========================================
@@ -93,6 +122,7 @@ function initMusic() {
   btn.addEventListener('click', () => {
     playTone('pop');
     if (audio.paused) {
+      audio.volume = 0.6;
       audio.play().then(() => {
         btn.innerHTML = '<i class="fa-solid fa-pause"></i>';
       }).catch(() => {});
@@ -102,6 +132,7 @@ function initMusic() {
     }
   });
 }
+
 
 /* ==========================================
    3. Swiper — Button-Only Navigation
@@ -841,7 +872,7 @@ function startSkyReveal() {
 
     // Sample coordinates
     offctx.font = `bold ${fontSize1}px "Poppins", sans-serif`;
-    offctx.fillText('Many More Happy Returns of the Day ✨🎆', offscreenCanvas.width / 2, offscreenCanvas.height / 2 - lineSpacing / 2);
+    offctx.fillText('Many More Happy Returns of the Day ✨ 🌸', offscreenCanvas.width / 2, offscreenCanvas.height / 2 - lineSpacing / 2);
 
     offctx.font = `italic bold ${fontSize2}px "Playfair Display", Georgia, serif`;
     offctx.fillText('Reddy Kiranmayi Sai Sri Gayathri Devi', offscreenCanvas.width / 2, offscreenCanvas.height / 2 + lineSpacing / 2);
@@ -1162,4 +1193,36 @@ function stopSkyReveal() {
     cancelAnimationFrame(skyCanvasAnimationFrameId);
     skyCanvasAnimationFrameId = null;
   }
+}
+
+/* ==========================================
+   16. Interactive 3D Parallax Quote Card
+   ========================================== */
+function initQuote3DTilt() {
+  const card = document.querySelector('.emotional-quote-container');
+  if (!card) return;
+
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    // Set custom properties for spotlight glare tracking
+    card.style.setProperty('--mouse-x', `${x}px`);
+    card.style.setProperty('--mouse-y', `${y}px`);
+    
+    // Calculate 3D rotations based on hover position
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = (centerY - y) / 12; // tilt angle range
+    const rotateY = (x - centerX) / 12;
+    
+    card.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02) translateY(-6px)`;
+  });
+
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1) translateY(0)';
+    card.style.setProperty('--mouse-x', '50%');
+    card.style.setProperty('--mouse-y', '50%');
+  });
 }
