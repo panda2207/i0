@@ -56,16 +56,18 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Auto-resume background music when video stops
+    // Auto-resume background music when video stops (only if after 6th slide)
     const handleVideoStop = () => {
       const anyPlaying = Array.from(videos).some(vid => !vid.paused && !vid.ended);
       if (!anyPlaying && bgMusicPausedByVideo) {
-        const bgMusic = document.getElementById('bgMusic');
-        if (bgMusic) {
-          bgMusic.play().then(() => {
-            const btn = document.getElementById('musicToggle');
-            if (btn) btn.innerHTML = '<i class="fa-solid fa-pause"></i>';
-          }).catch(() => {});
+        if (swiper && swiper.activeIndex >= 6) {
+          const bgMusic = document.getElementById('bgMusic');
+          if (bgMusic) {
+            bgMusic.play().then(() => {
+              const btn = document.getElementById('musicToggle');
+              if (btn) btn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+            }).catch(() => {});
+          }
         }
         bgMusicPausedByVideo = false;
       }
@@ -121,28 +123,8 @@ function initMusic() {
   if (!audio) return;
 
   audio.volume = 0.6;
-
-  // Function to start music playback automatically on first user gesture
-  const startAudioAutoplay = () => {
-    if (audio.paused && !bgMusicPausedByVideo) {
-      audio.play().then(() => {
-        if (btn) btn.innerHTML = '<i class="fa-solid fa-pause"></i>';
-        document.removeEventListener('click', startAudioAutoplay);
-        document.removeEventListener('touchstart', startAudioAutoplay);
-        document.removeEventListener('keydown', startAudioAutoplay);
-      }).catch(() => {});
-    }
-  };
-
-  // Attempt instant browser play immediately
-  audio.play().then(() => {
-    if (btn) btn.innerHTML = '<i class="fa-solid fa-pause"></i>';
-  }).catch(() => {
-    // If browser blocks instant autoplay, start audio on VERY FIRST click/tap anywhere!
-    document.addEventListener('click', startAudioAutoplay);
-    document.addEventListener('touchstart', startAudioAutoplay);
-    document.addEventListener('keydown', startAudioAutoplay);
-  });
+  audio.pause();
+  if (btn) btn.innerHTML = '<i class="fa-solid fa-music"></i>';
 
   btn.addEventListener('click', (e) => {
     e.stopPropagation();
@@ -193,23 +175,32 @@ function initSwiper() {
         if (fixedBtn) {
           fixedBtn.style.display = (this.activeIndex >= 7) ? 'none' : '';
         }
-        if (this.activeIndex === 5) {
-          // Pause all videos
+
+        // Background Music: Song plays ONLY after 6th slide (activeIndex >= 6)
+        const bgMusic = document.getElementById('bgMusic');
+        const musicBtn = document.getElementById('musicToggle');
+
+        if (this.activeIndex >= 6) {
+          // Pause any video that might be playing
           const videos = document.querySelectorAll('video');
           videos.forEach(vid => vid.pause());
 
-          // Resume/play background music
-          const bgMusic = document.getElementById('bgMusic');
           if (bgMusic) {
             bgMusic.play().then(() => {
-              const btn = document.getElementById('musicToggle');
-              if (btn) btn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+              if (musicBtn) musicBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
             }).catch(err => {
               console.log("Audio play blocked/failed: ", err);
             });
             bgMusicPausedByVideo = false;
           }
+        } else {
+          // Pause music on slides 1 to 6 (activeIndex 0 to 5)
+          if (bgMusic && !bgMusic.paused) {
+            bgMusic.pause();
+            if (musicBtn) musicBtn.innerHTML = '<i class="fa-solid fa-music"></i>';
+          }
         }
+
         if (this.activeIndex === 6) {
           startSkyReveal(); // Slide 7 (index 6)
         } else {
