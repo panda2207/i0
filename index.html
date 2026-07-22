@@ -507,6 +507,57 @@
     </div>
   </div>
 
+  <!-- Post-Cake Cutting Celebration Modal -->
+  <div class="post-cake-overlay" id="postCakeOverlay">
+    <div class="post-cake-backdrop" onclick="closePostCakeOverlay()"></div>
+    <div class="post-cake-card glass-card">
+      <button class="post-cake-close-btn" onclick="closePostCakeOverlay()" title="Close">&times;</button>
+      
+      <div class="post-cake-header-tag">
+        <i class="fa-solid fa-sparkles"></i> Cake Cut Successfully! <i class="fa-solid fa-sparkles"></i>
+      </div>
+
+      <!-- Animated Crackers Rocket Row -->
+      <div class="crackers-shooting-row">
+        <span class="cracker-rocket float-r1">🚀</span>
+        <span class="cracker-burst float-b1">💥</span>
+        <span class="cracker-rocket float-r2">🎆</span>
+        <span class="cracker-burst float-b2">✨</span>
+        <span class="cracker-rocket float-r3">🚀</span>
+      </div>
+
+      <!-- Glowing Name Display -->
+      <div class="post-cake-name-container">
+        <p class="post-cake-wishes-sub">✨ Happy Birthday Dearest ✨</p>
+        <h1 class="post-cake-full-name">Reddy Kiranmayi Sai Sri Gayathri Devi</h1>
+      </div>
+
+      <!-- Little Baby Girl Reveal -->
+      <div class="post-cake-baby-girl-wrapper">
+        <div class="post-cake-baby-halo"></div>
+        <img src="princess.jpg" alt="Little Baby Girl Kiran" class="post-cake-baby-girl-img" />
+        <div class="post-cake-baby-badge">
+          <i class="fa-solid fa-crown" style="color: #ffd700;"></i> Little Princess Kiran 🌸
+        </div>
+      </div>
+
+      <!-- Sweet Wishes Text -->
+      <p class="post-cake-msg-text">
+        May your life shine as bright as these sky crackers! May Sai Baba always bless you with super wonderful health, infinite happiness, and every dream fulfilled! ❤️✨
+      </p>
+
+      <div class="post-cake-btn-row">
+        <button class="post-cake-replay-btn" onclick="triggerPostCakeCrackers()">
+          <i class="fa-solid fa-fire"></i> Shoot Crackers Again! 🎆
+        </button>
+        <button class="post-cake-next-btn" onclick="closePostCakeOverlay(); goNext();">
+          Next Slide <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
   <!-- Fixed navigation button -->
   <button class="fixed-next-btn" id="fixedNextBtn" onclick="goNext()">
     Next <i class="fa-solid fa-arrow-right"></i>

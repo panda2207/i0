@@ -822,10 +822,14 @@ function triggerCakeCelebration() {
   // Play grand celebration cascade chimes!
   playTone('celebrate');
 
-  // Show screen-wide burst of fireworks
+  // Trigger main celebration fireworks canvas (rockets shooting up)
+  fwActive = true;
+  triggerPostCakeCrackers();
+
+  // Show screen-wide burst of fireworks & confetti
   let duration = 6 * 1000;
   let animationEnd = Date.now() + duration;
-  let defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 9999 };
+  let defaults = { startVelocity: 35, spread: 360, ticks: 60, zIndex: 10006 };
 
   function randomInRange(min, max) {
     return Math.random() * (max - min) + min;
@@ -843,12 +847,15 @@ function triggerCakeCelebration() {
     confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
   }, 250);
 
-  // Trigger main celebration fireworks canvas
-  if (typeof triggerCelebration === 'function') {
-    triggerCelebration();
-  }
+  // Open the post-cake celebration overlay (crackers shooting up, full name, little baby girl reveal)
+  setTimeout(() => {
+    const overlay = document.getElementById('postCakeOverlay');
+    if (overlay) {
+      overlay.classList.add('active');
+    }
+  }, 400);
 
-  // Show the secret wish card with a fade-in animation
+  // Show the secret wish card with a fade-in animation on slide
   const secretCard = document.getElementById('secretWishCard');
   if (secretCard) {
     secretCard.classList.remove('hidden-element');
@@ -857,6 +864,35 @@ function triggerCakeCelebration() {
     }, 100);
   }
 }
+
+/* Post-Cake Crackers & Modal Controllers */
+window.triggerPostCakeCrackers = function() {
+  playTone('celebrate');
+  fwActive = true;
+
+  // Rapid rocket launches shooting UP continuously
+  let count = 0;
+  const launchInterval = setInterval(() => {
+    launch();
+    count++;
+    if (count >= 18) clearInterval(launchInterval);
+  }, 180);
+
+  // Side-cannon and center confetti bursts
+  const end = Date.now() + 4500;
+  (function frame() {
+    confetti({ particleCount: 6, angle: 60, spread: 60, origin: { x: 0, y: 0.75 }, zIndex: 10006 });
+    confetti({ particleCount: 6, angle: 120, spread: 60, origin: { x: 1, y: 0.75 }, zIndex: 10006 });
+    confetti({ particleCount: 8, angle: 90, spread: 110, origin: { x: 0.5, y: 0.9 }, zIndex: 10006 });
+    if (Date.now() < end) requestAnimationFrame(frame);
+  })();
+};
+
+window.closePostCakeOverlay = function() {
+  playTone('pop');
+  const overlay = document.getElementById('postCakeOverlay');
+  if (overlay) overlay.classList.remove('active');
+};
 
 /* ==========================================
    15. Slide 3 — Interactive Badge Spark Logic
