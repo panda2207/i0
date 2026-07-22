@@ -39,9 +39,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Auto-pause other playing videos and background music when one starts
-    v.addEventListener('play', () => {
+    const handleVideoPlay = (e) => {
+      const currentVid = e.target;
       videos.forEach((otherV) => {
-        if (otherV !== v) {
+        if (otherV !== currentVid) {
           otherV.pause();
         }
       });
@@ -50,31 +51,13 @@ document.addEventListener('DOMContentLoaded', () => {
       const bgMusic = document.getElementById('bgMusic');
       if (bgMusic && !bgMusic.paused) {
         bgMusic.pause();
-        bgMusicPausedByVideo = true;
         const btn = document.getElementById('musicToggle');
         if (btn) btn.innerHTML = '<i class="fa-solid fa-music"></i>';
       }
-    });
-
-    // Auto-resume background music when video stops (only if after 6th slide)
-    const handleVideoStop = () => {
-      const anyPlaying = Array.from(videos).some(vid => !vid.paused && !vid.ended);
-      if (!anyPlaying && bgMusicPausedByVideo) {
-        if (swiper && swiper.activeIndex >= 6) {
-          const bgMusic = document.getElementById('bgMusic');
-          if (bgMusic) {
-            bgMusic.play().then(() => {
-              const btn = document.getElementById('musicToggle');
-              if (btn) btn.innerHTML = '<i class="fa-solid fa-pause"></i>';
-            }).catch(() => {});
-          }
-        }
-        bgMusicPausedByVideo = false;
-      }
     };
 
-    v.addEventListener('pause', handleVideoStop);
-    v.addEventListener('ended', handleVideoStop);
+    v.addEventListener('play', handleVideoPlay);
+    v.addEventListener('playing', handleVideoPlay);
   });
 
   initSwiper();
@@ -176,26 +159,25 @@ function initSwiper() {
           fixedBtn.style.display = (this.activeIndex >= 7) ? 'none' : '';
         }
 
-        // Background Music: Song plays ONLY after 6th slide (activeIndex >= 6)
+        // Pause all videos whenever changing slides
+        const videos = document.querySelectorAll('video');
+        videos.forEach(vid => vid.pause());
+
+        // Background Music: Song starts strictly AFTER the cake slide (activeIndex >= 6, i.e. Slide 7 & Slide 8)
         const bgMusic = document.getElementById('bgMusic');
         const musicBtn = document.getElementById('musicToggle');
 
         if (this.activeIndex >= 6) {
-          // Pause any video that might be playing
-          const videos = document.querySelectorAll('video');
-          videos.forEach(vid => vid.pause());
-
           if (bgMusic) {
             bgMusic.play().then(() => {
               if (musicBtn) musicBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
             }).catch(err => {
               console.log("Audio play blocked/failed: ", err);
             });
-            bgMusicPausedByVideo = false;
           }
         } else {
-          // Pause music on slides 1 to 6 (activeIndex 0 to 5)
-          if (bgMusic && !bgMusic.paused) {
+          // Stop song on or before the cake slide (Slides 1 to 6)
+          if (bgMusic) {
             bgMusic.pause();
             if (musicBtn) musicBtn.innerHTML = '<i class="fa-solid fa-music"></i>';
           }
