@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (v.error.code === 1) msg = "Playback aborted by browser";
         else if (v.error.code === 2) msg = "Network loading error";
         else if (v.error.code === 3) msg = "Format decoding error (Unsupported Codec)";
-        else if (v.error.code === 4) msg = "Source video file not found";
+        else if (v.error.code === 4) msg = "Source video file not found or codec not supported";
       }
       
       const overlay = document.createElement('div');
@@ -176,14 +176,39 @@ function initSwiper() {
       clickable: false,
     },
     on: {
+      init() {
+        if (this.slides && this.slides[this.activeIndex]) {
+          this.slides[this.activeIndex].querySelectorAll('[data-aos]').forEach(el => el.classList.add('aos-animate'));
+        }
+      },
       slideChange() {
         updateProgress(this.activeIndex);
         updateCounter(this.activeIndex);
         AOS.refresh();
+        if (this.slides && this.slides[this.activeIndex]) {
+          this.slides[this.activeIndex].querySelectorAll('[data-aos]').forEach(el => el.classList.add('aos-animate'));
+        }
         // Hide Next button only on the very last slide
         const fixedBtn = document.getElementById('fixedNextBtn');
         if (fixedBtn) {
           fixedBtn.style.display = (this.activeIndex >= 7) ? 'none' : '';
+        }
+        if (this.activeIndex === 5) {
+          // Pause all videos
+          const videos = document.querySelectorAll('video');
+          videos.forEach(vid => vid.pause());
+
+          // Resume/play background music
+          const bgMusic = document.getElementById('bgMusic');
+          if (bgMusic) {
+            bgMusic.play().then(() => {
+              const btn = document.getElementById('musicToggle');
+              if (btn) btn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+            }).catch(err => {
+              console.log("Audio play blocked/failed: ", err);
+            });
+            bgMusicPausedByVideo = false;
+          }
         }
         if (this.activeIndex === 6) {
           startSkyReveal(); // Slide 7 (index 6)

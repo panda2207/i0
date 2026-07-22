@@ -82,27 +82,32 @@
 }
 
 html, body {
-  width: 100%; height: 100%;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
   font-family: 'Poppins', sans-serif;
   color: var(--text-main);
-  overflow: hidden;
+  overflow: hidden !important;
+  overflow-x: hidden !important;
   transition: color 0.4s;
 }
 
 /* ---- Swiper Full Screen ---- */
 .swiper {
-  width: 100vw;
-  height: 100vh;
+  width: 100% !important;
+  height: 100% !important;
+  overflow: hidden !important;
 }
 
 .swiper-slide {
-  width: 100vw;
-  height: 100vh;
+  width: 100% !important;
+  height: 100% !important;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  overflow: hidden;
+  overflow: hidden !important;
 }
 
 /* ---- Animated Gradient Backgrounds ---- */
@@ -2718,6 +2723,8 @@ html, body {
   text-transform: uppercase;
   letter-spacing: 0.08em;
   margin-left: 14px;
+}
+
 .slide-gallery-slide {
   background: #0a010c !important;
 }
@@ -2947,6 +2954,7 @@ html, body {
   gap: 15px;
   margin-top: 15px;
   width: 100%;
+  flex-shrink: 0;
 }
 
 .cake-instruction {
@@ -2968,6 +2976,8 @@ html, body {
   position: relative;
   width: 260px;
   height: 200px;
+  min-height: 200px;
+  flex-shrink: 0;
   margin-top: 30px;
   display: flex;
   flex-direction: column;
@@ -2978,6 +2988,8 @@ html, body {
 .cake-plate {
   position: absolute;
   bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
   width: 300px;
   height: 18px;
   background: linear-gradient(90deg, #e0e0e0 0%, #ffffff 50%, #b5b5b5 100%);
@@ -2988,6 +3000,8 @@ html, body {
 
 .cake-layer {
   position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   border-radius: 12px 12px 0 0;
   box-shadow: inset 0 6px 10px rgba(255, 255, 255, 0.15), 0 5px 15px rgba(0, 0, 0, 0.35);
 }
@@ -3013,6 +3027,8 @@ html, body {
 .cake-frosting {
   position: absolute;
   bottom: 136px;
+  left: 50%;
+  transform: translateX(-50%);
   width: 170px;
   height: 15px;
   background: #ff4d6d; /* Ruby Red Frosting */
@@ -3043,6 +3059,8 @@ html, body {
 .candles-row {
   position: absolute;
   bottom: 146px;
+  left: 50%;
+  transform: translateX(-50%);
   width: 140px;
   display: flex;
   justify-content: space-between;
