@@ -46,7 +46,7 @@
 
 
   <!-- Background Music -->
-  <audio id="bgMusic" loop preload="auto">
+  <audio id="bgMusic" loop autoplay preload="auto">
     <source src="music.m4a" type="audio/mp4">
     <source src="music.m4a" type="audio/x-m4a">
   </audio>
@@ -118,155 +118,133 @@
           </div>
         </div>
       </section>
+            <!-- ===== SLIDE 3: Interactive Memory Gallery ===== -->
+      <section class="swiper-slide slide-gallery-slide" style="background: #0a010c !important;">
+        <div class="slide-bg slide-gallery-bg" style="background: radial-gradient(circle at 50% 15%, rgba(255, 215, 0, 0.22), transparent 45%), radial-gradient(circle at 20% 60%, rgba(255, 77, 109, 0.35), transparent 50%), radial-gradient(circle at 80% 70%, rgba(138, 43, 226, 0.3), transparent 50%), linear-gradient(165deg, #18031a 0%, #290825 40%, #150217 70%, #0a010c 100%) !important;"></div>
+        <div class="floating-shapes" id="shapes3"></div>
+        <div class="slide-inner wide-inner swiper-no-swiping" style="overflow-y: auto; max-height: 84vh; padding-bottom: 70px; display: flex; flex-direction: column; align-items: center;">
 
-      <!-- ===== SLIDE 3: Interactive Memory Gallery ===== -->
-      <section class="swiper-slide slide-gallery-slide">
-        <div class="slide-bg slide-gallery-bg"></div>
-        <div class="slide-inner wide-inner swiper-no-swiping">
+          <!-- Mascot stickers floating at top -->
+          <div class="mascot-row" style="margin-bottom: 4px;">
+            <img src="panda.jpg"     alt="Panda"     class="mascot float-1">
+            <img src="doraemon.jpg"  alt="Doraemon"  class="mascot float-2">
+            <img src="shinchan.jpg"  alt="Shinchan"  class="mascot float-3">
+            <img src="tom_jerry.jpg" alt="Tom Jerry"  class="mascot float-4">
+          </div>
 
-          <div class="slide-tag-center red-heart-tag" data-aos="fade-down">
+          <div class="slide-tag-center red-heart-tag" style="margin-bottom: 8px; background: rgba(255, 77, 109, 0.3); color: #ffffff; border: 1.5px solid #ffd700; font-size: 0.92rem; font-weight: 800; padding: 6px 18px; border-radius: 20px; box-shadow: 0 0 15px rgba(255,215,0,0.4); text-shadow: 0 2px 4px rgba(0,0,0,0.9); display: inline-block;">
             🎂 Your Birthday, Their Smile
           </div>
-          <h2 class="section-title text-glow" data-aos="fade-down" data-aos-delay="100">
+          <h2 class="section-title text-glow" style="margin-bottom: 14px; font-size: 1.85rem; color: #ffffff; text-shadow: 0 0 25px rgba(255, 215, 0, 0.95), 0 0 12px #ff4d6d, 0 3px 8px #000; font-weight: 800; letter-spacing: 0.02em; text-align: center;">
             ✨ This Is All Because Of You
           </h2>
 
-          <div class="gallery-grid" data-aos="zoom-in" data-aos-delay="200">
-            <!-- Memory 1 -->
-            <div class="gallery-item placeholder-item">
-              <div class="gallery-card glass-card dashed-card">
-                <div class="placeholder-content">
-                  <i class="fa-solid fa-plus"></i>
-                  <span>Add Photo / Video (1)</span>
-                </div>
-              </div>
+          <!-- Video 1: Main Birthday Video -->
+          <div class="featured-video-item" style="max-width: 580px; width: 94%; margin: 4px auto 18px auto; opacity: 1 !important; visibility: visible !important; display: block !important;">
+            <span class="video-item-tag" style="margin-bottom: 8px; color: #ffd700; font-size: 0.88rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; text-shadow: 0 0 10px rgba(255,215,0,0.6); display: block;"><i class="fa-solid fa-crown" style="color: #ffd700;"></i> Special Birthday Video</span>
+            <div class="theater-video-frame-large" style="max-height: 44vh; min-height: 250px; display: flex; align-items: center; justify-content: center; padding: 6px; background: #000; border-radius: 18px;">
+              <video src="WhatsApp Video 2026-07-22 at 8.54.07 AM.mp4" controls preload="auto" class="theater-player-large" style="max-height: 42vh; width: 100%; aspect-ratio: 9/16; object-fit: contain; display: block;"></video>
+            </div>
+          </div>
+
+          <!-- Video 2: Celebration Video 1 -->
+          <div class="featured-video-item" style="max-width: 580px; width: 94%; margin: 0 auto 18px auto; opacity: 1 !important; visibility: visible !important; display: block !important;">
+            <span class="video-item-tag" style="margin-bottom: 8px; color: #ffd700; font-size: 0.88rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; text-shadow: 0 0 10px rgba(255,215,0,0.6); display: block;"><i class="fa-solid fa-film" style="color: #ffd700;"></i> Celebration Video 1</span>
+            <div class="theater-video-frame-large" style="max-height: 44vh; min-height: 250px; display: flex; align-items: center; justify-content: center; padding: 6px; background: #000; border-radius: 18px;">
+              <video src="short_video1.mp4" controls preload="auto" class="theater-player-large" style="max-height: 42vh; width: 100%; aspect-ratio: 9/16; object-fit: contain; display: block;"></video>
+            </div>
+          </div>
+
+          <!-- Video 3: Celebration Video 2 -->
+          <div class="featured-video-item" style="max-width: 580px; width: 94%; margin: 0 auto 18px auto; opacity: 1 !important; visibility: visible !important; display: block !important;">
+            <span class="video-item-tag" style="margin-bottom: 8px; color: #ffd700; font-size: 0.88rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; text-shadow: 0 0 10px rgba(255,215,0,0.6); display: block;"><i class="fa-solid fa-film" style="color: #ffd700;"></i> Celebration Video 2</span>
+            <div class="theater-video-frame-large" style="max-height: 44vh; min-height: 250px; display: flex; align-items: center; justify-content: center; padding: 6px; background: #000; border-radius: 18px;">
+              <video src="short_video2.mp4" controls preload="auto" class="theater-player-large" style="max-height: 42vh; width: 100%; aspect-ratio: 9/16; object-fit: contain; display: block;"></video>
+            </div>
+          </div>
+
+          <!-- Video 4: Celebration Video 3 -->
+          <div class="featured-video-item" style="max-width: 580px; width: 94%; margin: 0 auto 22px auto; opacity: 1 !important; visibility: visible !important; display: block !important;">
+            <span class="video-item-tag" style="margin-bottom: 8px; color: #ffd700; font-size: 0.88rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; text-shadow: 0 0 10px rgba(255,215,0,0.6); display: block;"><i class="fa-solid fa-film" style="color: #ffd700;"></i> Celebration Video 3</span>
+            <div class="theater-video-frame-large" style="max-height: 44vh; min-height: 250px; display: flex; align-items: center; justify-content: center; padding: 6px; background: #000; border-radius: 18px;">
+              <video src="short_video3.mp4" controls preload="auto" class="theater-player-large" style="max-height: 42vh; width: 100%; aspect-ratio: 9/16; object-fit: contain; display: block;"></video>
+            </div>
+          </div>
+
+
+          <!-- 16 Photo Gallery Grid (Full 16 Donation Photos) -->
+          <div class="donation-photos-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(135px, 1fr)); gap: 10px; max-width: 880px; width: 96%; margin: 16px auto 0 auto; opacity: 1 !important; visibility: visible !important;">
+            <div class="photo-card glass-card" onclick="openLightbox('image', 'donation1.jpg')" style="padding: 5px; border-radius: 12px; cursor: pointer; background: rgba(0,0,0,0.45); border: 1.5px solid #ffd700; box-shadow: 0 8px 20px rgba(0,0,0,0.35);">
+              <img src="donation1.jpg" alt="Love and Care 1" style="width: 100%; aspect-ratio: 9/16; object-fit: contain; border-radius: 8px; display: block;">
+            </div>
+            <div class="photo-card glass-card" onclick="openLightbox('image', 'donation2.jpg')" style="padding: 5px; border-radius: 12px; cursor: pointer; background: rgba(0,0,0,0.45); border: 1.5px solid #ffd700; box-shadow: 0 8px 20px rgba(0,0,0,0.35);">
+              <img src="donation2.jpg" alt="Love and Care 2" style="width: 100%; aspect-ratio: 9/16; object-fit: contain; border-radius: 8px; display: block;">
+            </div>
+            <div class="photo-card glass-card" onclick="openLightbox('image', 'donation3.jpg')" style="padding: 5px; border-radius: 12px; cursor: pointer; background: rgba(0,0,0,0.45); border: 1.5px solid #ffd700; box-shadow: 0 8px 20px rgba(0,0,0,0.35);">
+              <img src="donation3.jpg" alt="Love and Care 3" style="width: 100%; aspect-ratio: 9/16; object-fit: contain; border-radius: 8px; display: block;">
+            </div>
+            <div class="photo-card glass-card" onclick="openLightbox('image', 'donation4.jpg')" style="padding: 5px; border-radius: 12px; cursor: pointer; background: rgba(0,0,0,0.45); border: 1.5px solid #ffd700; box-shadow: 0 8px 20px rgba(0,0,0,0.35);">
+              <img src="donation4.jpg" alt="Love and Care 4" style="width: 100%; aspect-ratio: 9/16; object-fit: contain; border-radius: 8px; display: block;">
+            </div>
+            <div class="photo-card glass-card" onclick="openLightbox('image', 'donation5.jpg')" style="padding: 5px; border-radius: 12px; cursor: pointer; background: rgba(0,0,0,0.45); border: 1.5px solid #ffd700; box-shadow: 0 8px 20px rgba(0,0,0,0.35);">
+              <img src="donation5.jpg" alt="Love and Care 5" style="width: 100%; aspect-ratio: 9/16; object-fit: contain; border-radius: 8px; display: block;">
+            </div>
+            <div class="photo-card glass-card" onclick="openLightbox('image', 'donation6.jpg')" style="padding: 5px; border-radius: 12px; cursor: pointer; background: rgba(0,0,0,0.45); border: 1.5px solid #ffd700; box-shadow: 0 8px 20px rgba(0,0,0,0.35);">
+              <img src="donation6.jpg" alt="Love and Care 6" style="width: 100%; aspect-ratio: 9/16; object-fit: contain; border-radius: 8px; display: block;">
+            </div>
+            <div class="photo-card glass-card" onclick="openLightbox('image', 'donation7.jpg')" style="padding: 5px; border-radius: 12px; cursor: pointer; background: rgba(0,0,0,0.45); border: 1.5px solid #ffd700; box-shadow: 0 8px 20px rgba(0,0,0,0.35);">
+              <img src="donation7.jpg" alt="Love and Care 7" style="width: 100%; aspect-ratio: 9/16; object-fit: contain; border-radius: 8px; display: block;">
+            </div>
+            <div class="photo-card glass-card" onclick="openLightbox('image', 'donation8.jpg')" style="padding: 5px; border-radius: 12px; cursor: pointer; background: rgba(0,0,0,0.45); border: 1.5px solid #ffd700; box-shadow: 0 8px 20px rgba(0,0,0,0.35);">
+              <img src="donation8.jpg" alt="Love and Care 8" style="width: 100%; aspect-ratio: 9/16; object-fit: contain; border-radius: 8px; display: block;">
+            </div>
+            <div class="photo-card glass-card" onclick="openLightbox('image', 'donation9.jpg')" style="padding: 5px; border-radius: 12px; cursor: pointer; background: rgba(0,0,0,0.45); border: 1.5px solid #ffd700; box-shadow: 0 8px 20px rgba(0,0,0,0.35);">
+              <img src="donation9.jpg" alt="Love and Care 9" style="width: 100%; aspect-ratio: 9/16; object-fit: contain; border-radius: 8px; display: block;">
+            </div>
+            <div class="photo-card glass-card" onclick="openLightbox('image', 'donation10.jpg')" style="padding: 5px; border-radius: 12px; cursor: pointer; background: rgba(0,0,0,0.45); border: 1.5px solid #ffd700; box-shadow: 0 8px 20px rgba(0,0,0,0.35);">
+              <img src="donation10.jpg" alt="Love and Care 10" style="width: 100%; aspect-ratio: 9/16; object-fit: contain; border-radius: 8px; display: block;">
+            </div>
+            <div class="photo-card glass-card" onclick="openLightbox('image', 'donation11.jpg')" style="padding: 5px; border-radius: 12px; cursor: pointer; background: rgba(0,0,0,0.45); border: 1.5px solid #ffd700; box-shadow: 0 8px 20px rgba(0,0,0,0.35);">
+              <img src="donation11.jpg" alt="Love and Care 11" style="width: 100%; aspect-ratio: 9/16; object-fit: contain; border-radius: 8px; display: block;">
+            </div>
+            <div class="photo-card glass-card" onclick="openLightbox('image', 'donation12.jpg')" style="padding: 5px; border-radius: 12px; cursor: pointer; background: rgba(0,0,0,0.45); border: 1.5px solid #ffd700; box-shadow: 0 8px 20px rgba(0,0,0,0.35);">
+              <img src="donation12.jpg" alt="Love and Care 12" style="width: 100%; aspect-ratio: 9/16; object-fit: contain; border-radius: 8px; display: block;">
+            </div>
+            <div class="photo-card glass-card" onclick="openLightbox('image', 'donation13.jpg')" style="padding: 5px; border-radius: 12px; cursor: pointer; background: rgba(0,0,0,0.45); border: 1.5px solid #ffd700; box-shadow: 0 8px 20px rgba(0,0,0,0.35);">
+              <img src="donation13.jpg" alt="Love and Care 13" style="width: 100%; aspect-ratio: 9/16; object-fit: contain; border-radius: 8px; display: block;">
+            </div>
+            <div class="photo-card glass-card" onclick="openLightbox('image', 'donation14.jpg')" style="padding: 5px; border-radius: 12px; cursor: pointer; background: rgba(0,0,0,0.45); border: 1.5px solid #ffd700; box-shadow: 0 8px 20px rgba(0,0,0,0.35);">
+              <img src="donation14.jpg" alt="Love and Care 14" style="width: 100%; aspect-ratio: 9/16; object-fit: contain; border-radius: 8px; display: block;">
+            </div>
+            <div class="photo-card glass-card" onclick="openLightbox('image', 'donation15.jpg')" style="padding: 5px; border-radius: 12px; cursor: pointer; background: rgba(0,0,0,0.45); border: 1.5px solid #ffd700; box-shadow: 0 8px 20px rgba(0,0,0,0.35);">
+              <img src="donation15.jpg" alt="Love and Care 15" style="width: 100%; aspect-ratio: 9/16; object-fit: contain; border-radius: 8px; display: block;">
+            </div>
+            <div class="photo-card glass-card" onclick="openLightbox('image', 'donation16.jpg')" style="padding: 5px; border-radius: 12px; cursor: pointer; background: rgba(0,0,0,0.45); border: 1.5px solid #ffd700; box-shadow: 0 8px 20px rgba(0,0,0,0.35);">
+              <img src="donation16.jpg" alt="Love and Care 16" style="width: 100%; aspect-ratio: 9/16; object-fit: contain; border-radius: 8px; display: block;">
             </div>
 
-            <!-- Memory 2 -->
-            <div class="gallery-item placeholder-item">
-              <div class="gallery-card glass-card dashed-card">
-                <div class="placeholder-content">
-                  <i class="fa-solid fa-plus"></i>
-                  <span>Add Photo / Video (2)</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Memory 3 -->
-            <div class="gallery-item placeholder-item">
-              <div class="gallery-card glass-card dashed-card">
-                <div class="placeholder-content">
-                  <i class="fa-solid fa-plus"></i>
-                  <span>Add Photo / Video (3)</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Memory 4 -->
-            <div class="gallery-item placeholder-item">
-              <div class="gallery-card glass-card dashed-card">
-                <div class="placeholder-content">
-                  <i class="fa-solid fa-plus"></i>
-                  <span>Add Photo / Video (4)</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Memory 5 -->
-            <div class="gallery-item placeholder-item">
-              <div class="gallery-card glass-card dashed-card">
-                <div class="placeholder-content">
-                  <i class="fa-solid fa-plus"></i>
-                  <span>Add Photo / Video (5)</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Memory 6 -->
-            <div class="gallery-item placeholder-item">
-              <div class="gallery-card glass-card dashed-card">
-                <div class="placeholder-content">
-                  <i class="fa-solid fa-plus"></i>
-                  <span>Add Photo / Video (6)</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Memory 7 -->
-            <div class="gallery-item placeholder-item">
-              <div class="gallery-card glass-card dashed-card">
-                <div class="placeholder-content">
-                  <i class="fa-solid fa-plus"></i>
-                  <span>Add Photo / Video (7)</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Memory 8 -->
-            <div class="gallery-item placeholder-item">
-              <div class="gallery-card glass-card dashed-card">
-                <div class="placeholder-content">
-                  <i class="fa-solid fa-plus"></i>
-                  <span>Add Photo / Video (8)</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Memory 9 -->
-            <div class="gallery-item placeholder-item">
-              <div class="gallery-card glass-card dashed-card">
-                <div class="placeholder-content">
-                  <i class="fa-solid fa-plus"></i>
-                  <span>Add Photo / Video (9)</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Memory 10 -->
-            <div class="gallery-item placeholder-item">
-              <div class="gallery-card glass-card dashed-card">
-                <div class="placeholder-content">
-                  <i class="fa-solid fa-plus"></i>
-                  <span>Add Photo / Video (10)</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Memory 11 -->
-            <div class="gallery-item placeholder-item">
-              <div class="gallery-card glass-card dashed-card">
-                <div class="placeholder-content">
-                  <i class="fa-solid fa-plus"></i>
-                  <span>Add Photo / Video (11)</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Memory 12 -->
-            <div class="gallery-item placeholder-item">
-              <div class="gallery-card glass-card dashed-card">
-                <div class="placeholder-content">
-                  <i class="fa-solid fa-plus"></i>
-                  <span>Add Photo / Video (12)</span>
-                </div>
-              </div>
+            <!-- And So On Card (Strictly Contained Inside Box) -->
+            <div class="photo-card glass-card" style="padding: 14px 8px; border-radius: 12px; background: linear-gradient(145deg, rgba(255, 77, 109, 0.35), rgba(255, 215, 0, 0.25)); border: 1.5px dashed #ffd700; box-shadow: 0 8px 22px rgba(255,215,0,0.4); display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 180px; text-align: center; overflow: hidden; width: 100%; box-sizing: border-box;">
+              <span style="font-size: 1.05rem; color: #ffd700; font-weight: 800; letter-spacing: 0.04em; text-shadow: 0 0 12px rgba(255,215,0,0.9); line-height: 1.6; word-break: break-all; overflow-wrap: break-word; max-width: 90%; display: block; margin: 0 auto;">
+                so on ................................
+              </span>
             </div>
           </div>
 
         </div>
       </section>
 
-      <section class="swiper-slide slide-memories-slide">
-        <div class="slide-bg slide-memories-bg-dark"></div>
+      <section class="swiper-slide slide-memories-slide" style="background: #06020c !important;">
+        <div class="slide-bg slide-memories-bg-dark" style="background: radial-gradient(circle at 50% 20%, rgba(255, 215, 0, 0.2), transparent 45%), radial-gradient(circle at 20% 75%, rgba(0, 229, 255, 0.3), transparent 50%), radial-gradient(circle at 80% 80%, rgba(255, 77, 109, 0.35), transparent 50%), linear-gradient(165deg, #10031d 0%, #22062e 45%, #12021c 80%, #06020c 100%) !important; opacity: 1 !important;"></div>
         <div class="floating-particle particle-1"></div>
         <div class="floating-particle particle-2"></div>
         <div class="floating-particle particle-3"></div>
         <div class="quote-background-glow"></div>
-        <div class="slide-inner wide-inner swiper-no-swiping">
+        <div class="slide-inner wide-inner swiper-no-swiping" style="overflow-y: auto; max-height: 84vh; padding-bottom: 70px; display: flex; flex-direction: column; align-items: center;">
           <!-- Holographic Backlight Aura -->
           <div class="quote-backlight"></div>
 
-          <div class="emotional-quote-container" data-aos="zoom-in" data-aos-duration="1000">
+          <div class="emotional-quote-container" style="opacity: 1 !important; visibility: visible !important; border: 2px solid #ffd700; background: rgba(16, 3, 29, 0.75); backdrop-filter: blur(16px); box-shadow: 0 25px 60px rgba(0,0,0,0.85), 0 0 35px rgba(255,215,0,0.35); border-radius: 26px; padding: 32px 36px; margin: 12px auto 24px auto;">
             <!-- Luxury Gold Corner brackets -->
             <div class="quote-corner top-left"></div>
             <div class="quote-corner top-right"></div>
@@ -281,37 +259,37 @@
             <!-- Shining Sweep Reflection -->
             <div class="shining-glare-sweep"></div>
 
-            <p class="emotional-quote-text">
+            <p class="emotional-quote-text" style="color: #ffffff !important; font-size: 1.25rem; line-height: 1.8; text-shadow: 0 2px 6px rgba(0,0,0,0.9);">
               "<span class="highlight-script-rose quote-cursive-main">Kiran</span>, today your <span class="highlight-serif-gold">birthday</span> became a reason for someone to <span class="highlight-caps-cyan">receive food</span>, someone to <span class="highlight-caps-cyan">smile</span>, and someone to <span class="highlight-caps-cyan">sleep peacefully</span> with a full stomach. I pray that this <span class="highlight-serif-gold">goodness</span> returns to you as <span class="highlight-script-rose quote-cursive-sub">endless happiness</span>, <span class="highlight-serif-gold">super wonderful health</span>, and not getting any health problems in the future. I want you to always <span class="highlight-caps-cyan">enjoy the foods you love</span>, <span class="highlight-script-rose quote-cursive-sub" style="font-size: 2.1rem; vertical-align: middle;">smile</span> while eating them, and cherish every little happiness in life, along with <span class="highlight-script-rose quote-cursive-sub">beautiful blessings</span> throughout your life."
             </p>
           </div>
 
           <!-- Centered 3 Video Layout (1 Large + 2 Sub) -->
-          <div class="theater-videos-layout" data-aos="zoom-in" data-aos-delay="200">
+          <div class="theater-videos-layout" style="opacity: 1 !important; visibility: visible !important; display: flex; flex-direction: column; align-items: center; gap: 16px; width: 100%; max-width: 680px; margin: 0 auto;">
             
             <!-- Featured Video (Video 1) -->
-            <div class="featured-video-item">
-              <span class="video-item-tag">Moment 1</span>
-              <div class="theater-video-frame-large">
-                <video src="video3.mp4" controls preload="auto" class="theater-player-large"></video>
+            <div class="featured-video-item" style="opacity: 1 !important; visibility: visible !important; display: block !important;">
+              <span class="video-item-tag" style="color: #ffd700; font-weight: 800; font-size: 0.88rem; text-shadow: 0 0 10px rgba(255,215,0,0.6);"><i class="fa-solid fa-star" style="color: #ffd700;"></i> Moment 1</span>
+              <div class="theater-video-frame-large" style="background: #000; border: 2px solid #ffd700; border-radius: 20px; padding: 6px;">
+                <video src="video3.mp4" controls preload="auto" class="theater-player-large" style="width: 100%; aspect-ratio: 9/16; max-height: 40vh; object-fit: contain; display: block;"></video>
               </div>
             </div>
 
             <!-- Two Sub Videos Side-by-Side -->
-            <div class="sub-videos-row">
+            <div class="sub-videos-row" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; width: 100%;">
               <!-- Video 2 -->
-              <div class="sub-video-item">
-                <span class="video-item-tag-sub">Moment 2</span>
-                <div class="theater-video-frame-sub">
-                  <video src="video2.mp4" controls preload="auto" class="theater-player-sub"></video>
+              <div class="sub-video-item" style="opacity: 1 !important; visibility: visible !important; display: block !important;">
+                <span class="video-item-tag-sub" style="color: #ffd700; font-weight: 800; font-size: 0.8rem; text-shadow: 0 0 8px rgba(255,215,0,0.5);"><i class="fa-solid fa-film" style="color: #ffd700;"></i> Moment 2</span>
+                <div class="theater-video-frame-sub" style="background: #000; border: 1.5px solid #ffd700; border-radius: 16px; padding: 5px;">
+                  <video src="video2.mp4" controls preload="auto" class="theater-player-sub" style="width: 100%; aspect-ratio: 9/16; max-height: 32vh; object-fit: contain; display: block;"></video>
                 </div>
               </div>
 
               <!-- Video 3 -->
-              <div class="sub-video-item">
-                <span class="video-item-tag-sub">Moment 3</span>
-                <div class="theater-video-frame-sub">
-                  <video src="video1.mp4" controls preload="auto" class="theater-player-sub"></video>
+              <div class="sub-video-item" style="opacity: 1 !important; visibility: visible !important; display: block !important;">
+                <span class="video-item-tag-sub" style="color: #ffd700; font-weight: 800; font-size: 0.8rem; text-shadow: 0 0 8px rgba(255,215,0,0.5);"><i class="fa-solid fa-film" style="color: #ffd700;"></i> Moment 3</span>
+                <div class="theater-video-frame-sub" style="background: #000; border: 1.5px solid #ffd700; border-radius: 16px; padding: 5px;">
+                  <video src="video1.mp4" controls preload="auto" class="theater-player-sub" style="width: 100%; aspect-ratio: 9/16; max-height: 32vh; object-fit: contain; display: block;"></video>
                 </div>
               </div>
             </div>
@@ -363,6 +341,7 @@
                   <p>Please bless her with a wonderful job very soon. She has worked so hard and waited patiently. She deserves every happiness and every success. Please open the right doors for her, remove every difficulty from her path, and bless her with a bright future.</p>
                   <p>One of my biggest wishes is to see the happiness on your face, Kiran, when you receive your first salary and buy beautiful gifts for your family. I know how much that moment means to you, and I pray with all my heart that Sai Baba makes that dream come true very soon and I <em>pinky promise</em> Sai Baba will do this all.</p>
                   <p>Thank You, Baba, for always watching over Kiran. Please continue to guide her, protect her, and shower Your endless blessings upon her. If I could ask You for only one thing, it would be to always keep her healthy. That alone is enough to make my heart peaceful.</p>
+                  <p>I don't know how much I'll be able to do for you, but I promise I'll always do everything I can. No matter how hard life gets or how much effort it takes, I'll never stop trying to make your life a little brighter. Your happiness truly matters to me, and if I can be even one reason for your smile, that's enough to make my heart happy.</p>
                   <p>Kiran, I want you to know that I will always be excited to celebrate your success as if it were my own. Your achievements will always make me proud, and your happiness will always bring a smile to my face. No matter what challenges or problems come into your life, you will never have to face them alone. I will always stand beside you, support you, believe in you, and be there for you through every step of your journey. I will always pray for you, cheer for you, and celebrate every achievement you achieve because seeing you succeed is one of the greatest joys of my life.</p>
                   <p>Kiran, you are one of the greatest blessings in my life, and I thank Sai Baba every single day for bringing you into my life. No matter where life takes us, one thing will never change—I will always pray for you, always believe in you, and always be there for you.</p>
                 </div>

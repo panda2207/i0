@@ -118,8 +118,34 @@ function updateThemeIcon(btn, theme) {
 function initMusic() {
   const btn   = document.getElementById('musicToggle');
   const audio = document.getElementById('bgMusic');
+  if (!audio) return;
 
-  btn.addEventListener('click', () => {
+  audio.volume = 0.6;
+
+  // Function to start music playback automatically on first user gesture
+  const startAudioAutoplay = () => {
+    if (audio.paused && !bgMusicPausedByVideo) {
+      audio.play().then(() => {
+        if (btn) btn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+        document.removeEventListener('click', startAudioAutoplay);
+        document.removeEventListener('touchstart', startAudioAutoplay);
+        document.removeEventListener('keydown', startAudioAutoplay);
+      }).catch(() => {});
+    }
+  };
+
+  // Attempt instant browser play immediately
+  audio.play().then(() => {
+    if (btn) btn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+  }).catch(() => {
+    // If browser blocks instant autoplay, start audio on VERY FIRST click/tap anywhere!
+    document.addEventListener('click', startAudioAutoplay);
+    document.addEventListener('touchstart', startAudioAutoplay);
+    document.addEventListener('keydown', startAudioAutoplay);
+  });
+
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
     playTone('pop');
     if (audio.paused) {
       audio.volume = 0.6;
@@ -1226,3 +1252,83 @@ function initQuote3DTilt() {
     card.style.setProperty('--mouse-y', '50%');
   });
 }
+
+/* ==========================================
+   Slide 3 Cinema Switcher & Lightbox
+   ========================================== */
+window.switchSlide3Video = function(btnElem, src, label) {
+  const heroVideo = document.getElementById('slide3HeroVideo');
+  if (!heroVideo) return;
+
+  if (typeof playTone === 'function') playTone('pop');
+
+  if (btnElem && btnElem.parentElement) {
+    const btns = btnElem.parentElement.querySelectorAll('button');
+    btns.forEach(b => {
+      b.style.background = 'rgba(0,0,0,0.6)';
+      b.style.color = '#ffd700';
+    });
+    btnElem.style.background = 'linear-gradient(135deg, #ff4d6d, #ff758f)';
+    btnElem.style.color = '#fff';
+  }
+
+  heroVideo.pause();
+  heroVideo.src = src;
+  heroVideo.load();
+  heroVideo.play().catch(() => {});
+};
+
+window.expandSlide3Video = function() {
+  const heroVideo = document.getElementById('slide3HeroVideo');
+  if (!heroVideo) return;
+  playTone('pop');
+  if (heroVideo.requestFullscreen) {
+    heroVideo.requestFullscreen();
+  } else if (heroVideo.webkitRequestFullscreen) {
+    heroVideo.webkitRequestFullscreen();
+  }
+};
+
+window.openLightbox = function(type, src) {
+  const modal = document.getElementById('lightboxModal');
+  const img = document.getElementById('lightboxImage');
+  const vid = document.getElementById('lightboxVideo');
+  if (!modal || !img || !vid) return;
+
+  playTone('pop');
+  img.classList.add('hidden');
+  vid.classList.add('hidden');
+
+  if (type === 'image') {
+    img.src = src;
+    img.classList.remove('hidden');
+  } else if (type === 'video') {
+    vid.src = src;
+    vid.classList.remove('hidden');
+    vid.play().catch(() => {});
+  }
+
+  modal.classList.add('active');
+};
+
+window.closeLightbox = function() {
+  const modal = document.getElementById('lightboxModal');
+  const vid = document.getElementById('lightboxVideo');
+  if (modal) modal.classList.remove('active');
+  if (vid) {
+    vid.pause();
+    vid.src = '';
+  }
+};
+
+window.triggerHeartBurst = function() {
+  playTone('pop');
+  if (typeof confetti === 'function') {
+    confetti({
+      particleCount: 50,
+      spread: 80,
+      origin: { y: 0.8 },
+      colors: ['#ff4d6d', '#ff85a1', '#ffd700', '#ffffff', '#ffb3c1']
+    });
+  }
+};
