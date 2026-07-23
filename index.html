@@ -493,17 +493,70 @@
 
   <!-- Thank You Overlay -->
   <div class="thankyou-overlay" id="thankyouOverlay">
-    <div class="thankyou-card glass-card bounce-in">
-      <div class="ty-icon"><i class="fa-solid fa-cake-candles fa-bounce"></i></div>
-      <h2>Happy Birthday, Kiran! 🎂</h2>
-      <p>May this year bring you more joy, laughter, and beautiful memories than ever before.</p>
-      <div class="ty-mascots">
-        <img src="panda.jpg"     alt="Panda">
-        <img src="doraemon.jpg"  alt="Doraemon">
-        <img src="shinchan.jpg"  alt="Shinchan">
-        <img src="tom_jerry.jpg" alt="Tom & Jerry">
+    <div class="thankyou-backdrop" onclick="closeOverlay()"></div>
+    <div class="thankyou-card glass-card luxury-wish-modal bounce-in">
+      
+      <!-- Backlight Glow Aura -->
+      <div class="ty-card-aura"></div>
+      
+      <!-- Floating Sparkles -->
+      <div class="ty-sparkle ty-sparkle-1">✨</div>
+      <div class="ty-sparkle ty-sparkle-2">⭐</div>
+      <div class="ty-sparkle ty-sparkle-3">💖</div>
+      <div class="ty-sparkle ty-sparkle-4">✨</div>
+
+      <!-- Gold Corner Brackets -->
+      <div class="ty-corner top-left"></div>
+      <div class="ty-corner top-right"></div>
+      <div class="ty-corner bottom-left"></div>
+      <div class="ty-corner bottom-right"></div>
+
+      <!-- Icon Header -->
+      <div class="ty-icon-wrapper">
+        <div class="ty-icon-halo"></div>
+        <i class="fa-solid fa-cake-candles ty-header-icon fa-bounce"></i>
       </div>
-      <button class="close-ty-btn" onclick="closeOverlay()">You're Welcome! ✨</button>
+
+      <h2 class="ty-modal-title">Happy Birthday, <span class="name-glow-gold">Kiran!</span> 🎂</h2>
+      
+      <div class="ty-subtitle-badge">
+        <i class="fa-solid fa-star" style="color: #ffd700;"></i> Best Friends 365 Days A Year <i class="fa-solid fa-star" style="color: #ffd700;"></i>
+      </div>
+
+      <!-- Special Quote Frame -->
+      <div class="ty-quote-box">
+        <i class="fa-solid fa-quote-left ty-quote-mark ty-quote-left"></i>
+        <p class="ty-quote-text">
+          You're not special to me only on your birthday. You're special to me <span class="ty-highlight-gold">every single day</span> — <span class="ty-highlight-pink">365 days a year</span>, every hour, every minute, every second.
+          <br><br>
+          I'm truly lucky to have a best friend like you. <span class="ty-highlight-glow">Happy Birthday!</span> Wishing you endless happiness, laughter, and all the success you deserve. ❤️✨
+        </p>
+        <i class="fa-solid fa-quote-right ty-quote-mark ty-quote-right"></i>
+      </div>
+
+      <!-- Mascot Row with Glowing Halo Rings -->
+      <div class="ty-mascots-container">
+        <div class="ty-mascot-item" title="Panda">
+          <div class="ty-mascot-ring"></div>
+          <img src="panda.jpg" alt="Panda">
+        </div>
+        <div class="ty-mascot-item" title="Doraemon">
+          <div class="ty-mascot-ring"></div>
+          <img src="doraemon.jpg" alt="Doraemon">
+        </div>
+        <div class="ty-mascot-item" title="Shinchan">
+          <div class="ty-mascot-ring"></div>
+          <img src="shinchan.jpg" alt="Shinchan">
+        </div>
+        <div class="ty-mascot-item" title="Tom & Jerry">
+          <div class="ty-mascot-ring"></div>
+          <img src="tom_jerry.jpg" alt="Tom & Jerry">
+        </div>
+      </div>
+
+      <button class="close-ty-btn luxury-btn" onclick="closeOverlay()">
+        <span>You're Welcome! ✨</span>
+      </button>
     </div>
   </div>
 

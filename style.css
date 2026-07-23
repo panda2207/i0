@@ -1384,84 +1384,271 @@ html, body {
 }
 
 /* ======================================
-   Thank You Overlay
+   Thank You Overlay — Luxury Special Edition
    ====================================== */
 .thankyou-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.4);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
   z-index: 10000;
   display: none;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 16px;
 }
 
 .thankyou-overlay.active {
   display: flex;
 }
 
-.thankyou-card {
-  max-width: 460px;
-  text-align: center;
+.thankyou-backdrop {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(30, 4, 35, 0.88) 0%, rgba(8, 1, 12, 0.95) 100%);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
 
-.ty-icon {
-  font-size: 3rem;
-  color: var(--text-accent);
+.luxury-wish-modal {
+  position: relative;
+  z-index: 2;
+  width: 94%;
+  max-width: 540px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: radial-gradient(circle at 50% 15%, rgba(255, 215, 0, 0.18), transparent 55%),
+              linear-gradient(150deg, rgba(35, 6, 42, 0.96) 0%, rgba(18, 2, 22, 0.98) 100%) !important;
+  border: 2px solid #ffd700 !important;
+  border-radius: 28px !important;
+  padding: 32px 26px !important;
+  text-align: center;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.95),
+              0 0 50px rgba(255, 215, 0, 0.4),
+              inset 0 0 25px rgba(255, 215, 0, 0.12) !important;
+}
+
+.ty-card-aura {
+  position: absolute;
+  inset: -20px;
+  border-radius: 35px;
+  background: radial-gradient(circle, rgba(255, 77, 109, 0.3), rgba(255, 215, 0, 0.2), transparent 70%);
+  filter: blur(20px);
+  pointer-events: none;
+  z-index: -1;
+  animation: tyAuraPulse 4s ease-in-out infinite alternate;
+}
+
+@keyframes tyAuraPulse {
+  0% { opacity: 0.5; transform: scale(0.98); }
+  100% { opacity: 0.9; transform: scale(1.03); }
+}
+
+/* Gold corner brackets */
+.ty-corner {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #ffd700;
+  pointer-events: none;
+  z-index: 3;
+}
+.ty-corner.top-left { top: 12px; left: 12px; border-right: none; border-bottom: none; border-top-left-radius: 6px; }
+.ty-corner.top-right { top: 12px; right: 12px; border-left: none; border-bottom: none; border-top-right-radius: 6px; }
+.ty-corner.bottom-left { bottom: 12px; left: 12px; border-right: none; border-top: none; border-bottom-left-radius: 6px; }
+.ty-corner.bottom-right { bottom: 12px; right: 12px; border-left: none; border-top: none; border-bottom-right-radius: 6px; }
+
+/* Twinkling Sparkles */
+.ty-sparkle {
+  position: absolute;
+  pointer-events: none;
+  font-size: 1.2rem;
+  z-index: 4;
+  animation: tySparkleFloat 3s ease-in-out infinite alternate;
+}
+.ty-sparkle-1 { top: 18px; left: 24px; animation-delay: 0s; }
+.ty-sparkle-2 { top: 22px; right: 28px; animation-delay: 0.8s; }
+.ty-sparkle-3 { bottom: 20px; left: 28px; animation-delay: 1.5s; }
+.ty-sparkle-4 { bottom: 24px; right: 24px; animation-delay: 2.2s; }
+
+@keyframes tySparkleFloat {
+  0% { transform: translateY(0) scale(0.8); opacity: 0.4; }
+  100% { transform: translateY(-8px) scale(1.2); opacity: 1; filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.9)); }
+}
+
+/* Icon & Title */
+.ty-icon-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+.ty-icon-halo {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 77, 109, 0.5), transparent 70%);
+  filter: blur(10px);
+}
+.ty-header-icon {
+  font-size: 3.2rem;
+  color: #ff4d6d;
+  filter: drop-shadow(0 0 16px rgba(255, 77, 109, 0.9));
+  position: relative;
+  z-index: 2;
+}
+
+.ty-modal-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(1.6rem, 4vw, 2.1rem);
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 8px;
+  text-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+}
+.name-glow-gold {
+  background: linear-gradient(135deg, #ffd700, #ff758f);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.8));
+}
+
+.ty-subtitle-badge {
+  display: inline-block;
+  padding: 5px 18px;
+  border-radius: 20px;
+  background: rgba(255, 77, 109, 0.25);
+  border: 1.5px solid #ffd700;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  box-shadow: 0 0 14px rgba(255, 215, 0, 0.35);
   margin-bottom: 18px;
 }
 
-.thankyou-card h2 {
-  font-family: 'Poppins', sans-serif;
-  font-size: 1.8rem;
-  font-weight: 800;
-  margin-bottom: 12px;
-}
-
-.thankyou-card p {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 1rem;
-  color: var(--text-sub);
-  line-height: 1.6;
+/* Quote Frame */
+.ty-quote-box {
+  position: relative;
+  padding: 22px 24px;
+  background: rgba(10, 2, 14, 0.65);
+  border: 1.5px solid rgba(255, 215, 0, 0.4);
+  border-radius: 18px;
   margin-bottom: 22px;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6), 0 8px 25px rgba(0, 0, 0, 0.4);
 }
 
-.ty-mascots {
+.ty-quote-mark {
+  position: absolute;
+  font-size: 1.8rem;
+  color: #ffd700;
+  opacity: 0.35;
+  pointer-events: none;
+}
+.ty-quote-left { top: 10px; left: 12px; }
+.ty-quote-right { bottom: 10px; right: 12px; }
+
+.ty-quote-text {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.98rem;
+  line-height: 1.8;
+  color: #f1e6f5 !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  margin: 0 !important;
+}
+
+.ty-highlight-gold {
+  color: #ffd700;
+  font-weight: 800;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+}
+.ty-highlight-pink {
+  color: #ff758f;
+  font-weight: 800;
+  text-shadow: 0 0 10px rgba(255, 117, 143, 0.7);
+}
+.ty-highlight-glow {
+  color: #ffffff;
+  font-weight: 800;
+  background: linear-gradient(135deg, #ffd700, #ff4d6d);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.8));
+}
+
+/* Mascot Row */
+.ty-mascots-container {
   display: flex;
   justify-content: center;
-  gap: 14px;
+  align-items: center;
+  gap: 16px;
   margin-bottom: 26px;
 }
 
-.ty-mascots img {
-  width: 48px;
-  height: 48px;
+.ty-mascot-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+.ty-mascot-item:hover {
+  transform: translateY(-5px) scale(1.15);
+}
+
+.ty-mascot-ring {
+  position: absolute;
+  width: 58px;
+  height: 58px;
   border-radius: 50%;
-  border: 2px solid white;
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.6), rgba(255, 77, 109, 0.3), transparent 75%);
+  filter: blur(5px);
+  animation: tyMascotRing 3s ease-in-out infinite alternate;
+}
+
+@keyframes tyMascotRing {
+  0% { transform: scale(0.9); opacity: 0.6; }
+  100% { transform: scale(1.2); opacity: 1; }
+}
+
+.ty-mascot-item img {
+  position: relative;
+  z-index: 2;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 2px solid #ffd700;
   object-fit: cover;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5), 0 0 12px rgba(255, 215, 0, 0.6);
 }
 
-.close-ty-btn {
-  background: var(--btn-bg);
-  color: white;
-  border: none;
-  font-family: 'Poppins', sans-serif;
-  font-size: 1rem;
-  font-weight: 700;
-  padding: 12px 30px;
-  border-radius: 25px;
+/* Luxury Button */
+.luxury-btn {
+  position: relative;
+  background: linear-gradient(135deg, #ff4d6d 0%, #ff85a1 40%, #ffd700 100%) !important;
+  color: #ffffff !important;
+  border: 1.5px solid #ffd700 !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 1.05rem !important;
+  font-weight: 800 !important;
+  padding: 13px 36px !important;
+  border-radius: 30px !important;
   cursor: pointer;
-  transition: all 0.3s;
-  box-shadow: 0 4px 12px rgba(229,57,53,0.28);
+  box-shadow: 0 8px 25px rgba(255, 77, 109, 0.5), 0 0 20px rgba(255, 215, 0, 0.4) !important;
+  transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+  overflow: hidden;
 }
 
-.close-ty-btn:hover {
-  background: var(--btn-hover);
-  transform: translateY(-2px);
+.luxury-btn:hover {
+  transform: translateY(-3px) scale(1.06) !important;
+  box-shadow: 0 12px 35px rgba(255, 77, 109, 0.7), 0 0 30px rgba(255, 215, 0, 0.7) !important;
+}
+
+.luxury-btn span {
+  position: relative;
+  z-index: 2;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
 }
 
 /* ======================================
